@@ -1,0 +1,943 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="Say8K4BYW_qZ6LC1iUbskQGzA8_0sVuBBYkvtNykLno" />
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="配置,git,jenkins," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Nstd" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="一、起因公司的服务端维护一份错误码文件：errorCode.json，同时客户端也需要根据这样一份错误码对用户进行提示，错误码Sample如下：123456789&amp;#123;	&quot;200&quot;: &amp;#123;		&quot;0&quot;: &amp;#123;&quot;msg&quot;: &quot;成功&quot;&amp;#125;	&amp;#125;,	&quot;300&quot;: &amp;#123;		&quot;100&quot;: &amp;#123;&quot;msg&quot;: &quot;错误1&quot;&amp;#125;,		&quot;101&quot;: &amp;#12">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git+Jenkins之自动构建">
+<meta property="og:url" content="http://blog.aha-nstd.com/2016/03/23/integrate-git-and-jenkins-auto-build/index.html">
+<meta property="og:site_name" content="Nstd">
+<meta property="og:description" content="一、起因公司的服务端维护一份错误码文件：errorCode.json，同时客户端也需要根据这样一份错误码对用户进行提示，错误码Sample如下：123456789&amp;#123;	&quot;200&quot;: &amp;#123;		&quot;0&quot;: &amp;#123;&quot;msg&quot;: &quot;成功&quot;&amp;#125;	&amp;#125;,	&quot;300&quot;: &amp;#123;		&quot;100&quot;: &amp;#123;&quot;msg&quot;: &quot;错误1&quot;&amp;#125;,		&quot;101&quot;: &amp;#12">
+<meta property="og:image" content="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fgit_jenkins_plugin.png">
+<meta property="og:image" content="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fgit_config_1.png">
+<meta property="og:image" content="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fgit_config_2.png">
+<meta property="og:image" content="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fgit_config_3.png">
+<meta property="og:image" content="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fgitlab_api_token.png">
+<meta property="og:image" content="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fgit_credentials.png">
+<meta property="og:image" content="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fjenkins_job_git.png">
+<meta property="og:image" content="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fjenkins_job_trigger.png">
+<meta property="og:image" content="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fgitlab_web_hooks.png">
+<meta property="og:image" content="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fjenkins_job_xterm_env.png">
+<meta property="og:image" content="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fjenkins_job_execute_shell.png">
+<meta property="og:updated_time" content="2016-03-25T11:36:57.278Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git+Jenkins之自动构建">
+<meta name="twitter:description" content="一、起因公司的服务端维护一份错误码文件：errorCode.json，同时客户端也需要根据这样一份错误码对用户进行提示，错误码Sample如下：123456789&amp;#123;	&quot;200&quot;: &amp;#123;		&quot;0&quot;: &amp;#123;&quot;msg&quot;: &quot;成功&quot;&amp;#125;	&amp;#125;,	&quot;300&quot;: &amp;#123;		&quot;100&quot;: &amp;#123;&quot;msg&quot;: &quot;错误1&quot;&amp;#125;,		&quot;101&quot;: &amp;#12">
+<meta name="twitter:image" content="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fgit_jenkins_plugin.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <title> Git+Jenkins之自动构建 | Nstd </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-75334149-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?f453514ee5e5877ea008848d1d892156";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+    <div class="site-meta-headline">
+      <a>
+        <img class="custom-logo-image" src="/images/avatar.png"
+             alt="Nstd"/>
+      </a>
+    </div>
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Nstd</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-drawing">
+          <a href="/drawing" rel="section">
+            
+              <i class="menu-item-icon fa fa-paint-brush fa-fw"></i> <br />
+            
+            闲画
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Git+Jenkins之自动构建
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-03-23T12:01:23+08:00" content="2016-03-23">
+              2016-03-23
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/配置/" itemprop="url" rel="index">
+                    <span itemprop="name">配置</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            <span id="busuanzi_container_page_pv">
+              &nbsp; | &nbsp; <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>次一面之缘
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/03/23/integrate-git-and-jenkins-auto-build/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/23/integrate-git-and-jenkins-auto-build/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一、起因"><a href="#一、起因" class="headerlink" title="一、起因"></a>一、起因</h2><p>公司的服务端维护一份错误码文件：errorCode.json，同时客户端也需要根据这样一份错误码对用户进行提示，错误码Sample如下：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="attr">"200"</span>: &#123;</span><br><span class="line">		<span class="attr">"0"</span>: &#123;<span class="attr">"msg"</span>: <span class="string">"成功"</span>&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="attr">"300"</span>: &#123;</span><br><span class="line">		<span class="attr">"100"</span>: &#123;<span class="attr">"msg"</span>: <span class="string">"错误1"</span>&#125;,</span><br><span class="line">		<span class="attr">"101"</span>: &#123;<span class="attr">"msg"</span>: <span class="string">"错误2"</span>&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>平时都是服务器的同学在群里说 <strong>“加了xxx协议，更新了错误码 -。-”</strong> 客户端的同学才会去errorCode.json所在的项目（项目计划）更新项目，然后复制出来放到自己的应用项目中。</p>
+<p>这么操作，一来可能会让错误码更新不及时；二来这份文件返回的msg对用户并不友好，有时候需要我们手动设置对应的错误提示，代码中设置并不是一个好的选择，所以我们打算改造这份错误码，添加一些自定义的消息，如果存在自定义消息则使用自定义消息（这些不在本篇文章的讨论范围），改造后的json如下：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="attr">"200"</span>: &#123;</span><br><span class="line">		<span class="attr">"0"</span>: &#123;<span class="attr">"msg"</span>: <span class="string">"成功"</span>&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="attr">"300"</span>: &#123;</span><br><span class="line">		<span class="attr">"100"</span>: &#123;</span><br><span class="line">			<span class="attr">"msg"</span>:  <span class="string">"错误1"</span>,</span><br><span class="line">			<span class="attr">"cmsg"</span>: <span class="string">"这是给用户看的消息"</span></span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="attr">"101"</span>: &#123;<span class="attr">"msg"</span>: <span class="string">"错误2"</span>&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后就出现了这么一个需求：</p>
+<blockquote>
+<p><strong>自动更新我们项目中的errorCode.json文件，同时要把我们的自定义消息合并进去。</strong></p>
+</blockquote>
+<p>后来想想正好用git + jenkins hooks的方式：当有更新push到GitLab（我们内部使用的git管理平台）的时候，调用jenkins的project hook去自动执行相应的job,这个job是个shell脚本，有三步操作：</p>
+<ol>
+<li>update git project</li>
+<li>merge errorCode.json(此处是使用java做的，怎么方便怎么弄)</li>
+<li>push to git project<a id="more"></a>
+</li>
+</ol>
+<h2 id="二、经过"><a href="#二、经过" class="headerlink" title="二、经过"></a>二、经过</h2><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p><img src="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fgit_jenkins_plugin.png" alt="安装git插件"><br>进入【插件管理】界面安装以下插件：</p>
+<blockquote>
+<p><a href="https://wiki.jenkins-ci.org/display/JENKINS/Git+Client+Plugin" target="_blank" rel="external">Git client plugin</a><br><a href="https://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin" target="_blank" rel="external">Git plugin</a><br><a href="https://wiki.jenkins-ci.org/display/JENKINS/GitLab+Plugin" target="_blank" rel="external">GitLab Plugin</a><br><a href="https://wiki.jenkins-ci.org/display/JENKINS/AnsiColor+Plugin" target="_blank" rel="external">AnsiColor</a>（可选）这个插件可以让Jenkins的控制台输出的log带有颜色（就和linux控制台那样）</p>
+</blockquote>
+<h3 id="配置本地Git环境和Jenkins"><a href="#配置本地Git环境和Jenkins" class="headerlink" title="配置本地Git环境和Jenkins"></a>配置本地Git环境和Jenkins</h3><h4 id="配置Git"><a href="#配置Git" class="headerlink" title="配置Git"></a>配置Git</h4><ol>
+<li><p>先在Jenkins所在机器 <a href="https://git-scm.com/download/" target="_blank" rel="external">安装Git</a><br>安装好以后，添加git用户：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">"jenkins"</span></span><br><span class="line">git config --global user.email <span class="string">"jenkins@your-company.com"</span></span><br></pre></td></tr></table></figure>
+<p>PS：<strong>GitLab中需要有一个对应的jenkins账号，用来拉取代码</strong></p>
+</li>
+<li><p>生成本地账号的ssh秘钥<br>在命令行下(window下，使用Git Bash)进入主目录，执行以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">"jenkins@your-company.com"</span></span><br><span class="line">cat ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+<p>然后复制出公钥，添加到GitLab对应账号(jenkins)的SSH Keys中，这个公钥是为了让jenkins在拉取代码的时候有相应权限</p>
+</li>
+<li><p>生成jenkins的ssh秘钥<br>在命令行下进入 <strong>jenkins的安装目录\.ssh</strong>，执行以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br><span class="line">cat id_rsa.pub</span><br></pre></td></tr></table></figure>
+<p>然后复制出公钥，添加到GitLab对应账号（jenkins）的SSH keys中，这个公钥是为了让jenkins执行shell脚本时，如果shell脚本中有git命令，使其有拉取、提交代码的权限</p>
+</li>
+</ol>
+<h4 id="配置Jenkins"><a href="#配置Jenkins" class="headerlink" title="配置Jenkins"></a>配置Jenkins</h4><ol>
+<li><p>在Jenkins中配置Git<br>进入【<strong>系统管理</strong>】-&gt;【<strong>系统设置</strong>】</p>
+<ul>
+<li><p>设置使用的Git命令行<br><img src="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fgit_config_1.png" alt="设置Git"></p>
+</li>
+<li><p>配置Git账号<br><img src="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fgit_config_2.png" alt="配置Git账号"></p>
+</li>
+<li><p>配置Gitlab信息<br><img src="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fgit_config_3.png" alt="配置Gitlab"></p>
+</li>
+<li><p>API Token获取方式<br><img src="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fgitlab_api_token.png" alt="API Token获取方式"></p>
+</li>
+</ul>
+</li>
+<li><p>在Jenkins中配置Git账号<br><span id="config-git-credentials">进入</span>【<strong>Credentials</strong>】-&gt;【<strong>Global credentials(unrestricted</strong>】-&gt;【<strong>Add Credentials</strong>】<br><img src="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fgit_credentials.png" alt="配置Git账号"></p>
+</li>
+</ol>
+<h3 id="添加Job"><a href="#添加Job" class="headerlink" title="添加Job"></a>添加Job</h3><p>新建一个【<strong>构建一个自由风格的软件项目</strong>】的Job</p>
+<ul>
+<li><p>配置这个Job所用的Git项目信息<br><img src="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fjenkins_job_git.png" alt="Job Git Info"><br>这里的<strong>Credentials</strong>就是在<a href="#config-git-credentials">配置Git账号</a>中设置的账号；<font color="red">如果不配置Git项目信息，Git Push之后这个Job不会自动执行</font></p>
+</li>
+<li><p>配置触发器<br><img src="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fjenkins_job_trigger.png" alt="Job Trigger"><br>这里的圈出来的URL，需要配置到Gitlab对应项目的Web Hooks中</p>
+</li>
+<li><p>配置errorCode所在项目的Web Hooks<br>【<strong>Gitlab</strong>】-&gt;【<strong>选择项目</strong>】-&gt;【<strong>Settings</strong>】-&gt;【<strong>Web Hooks</strong>】<br><img src="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fgitlab_web_hooks.png" alt="Gitlab Web Hooks"><br>设置只有在收到push消息时才自动执行jenkins的job</p>
+</li>
+<li><p>配置构建环境（可选）<br><img src="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fjenkins_job_xterm_env.png" alt="Job Xterm Evn"><br>shell脚本中如果会输出带颜色的文字，可以设置这个，使Jenkins的Web Console也输出相同的颜色</p>
+</li>
+<li><p>配置执行的脚本并保存<br><img src="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fjenkins_job_execute_shell.png" alt="Job Execute Shell"></p>
+</li>
+</ul>
+<h3 id="update-sh脚本"><a href="#update-sh脚本" class="headerlink" title="update.sh脚本"></a>update.sh脚本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span><br><span class="line"></span></span><br><span class="line"><span class="comment">###################################################################</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 目录结构:</span></span><br><span class="line"><span class="comment"># .../ErrorCode</span></span><br><span class="line"><span class="comment">#        tools/</span></span><br><span class="line"><span class="comment">#            ECode.jar           //用java写的转换json工具</span></span><br><span class="line"><span class="comment">#            color.sh</span></span><br><span class="line"><span class="comment">#            config.properties   //ECode.jar用的配置文件,配置json文件路径什么的</span></span><br><span class="line"><span class="comment">#            update.sh</span></span><br><span class="line"><span class="comment">#        plan_project/</span></span><br><span class="line"><span class="comment">#            ....../clientErrorCode.json</span></span><br><span class="line"><span class="comment">#        android_application_project/</span></span><br><span class="line"><span class="comment">#            ....../clientErrorCode.json</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 注意：</span></span><br><span class="line"><span class="comment">#    需要把 ErrorCode/下的所有文件的所有者设置为jenkins，</span></span><br><span class="line"><span class="comment">#    否则jenkins执行这个脚本的时候，会因为缺乏读写权限导致更新、提交git失败</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">###################################################################</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">source</span> /Users/compile/ErrorCode/tools/color.sh</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /Users/compile/ErrorCode/</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> tools</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span>Blue <span class="string">"update plan_project.."</span></span><br><span class="line"><span class="built_in">cd</span> ../plan_project</span><br><span class="line">git pull origin master</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ $? <span class="_">-ne</span> 0 ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span>Error <span class="string">"update plan_project(clientErrorCode.json) from git failed"</span></span><br><span class="line">        <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span>Blue <span class="string">"update android_application_project.."</span></span><br><span class="line"><span class="built_in">cd</span> ../android_application_project</span><br><span class="line">git checkout develop</span><br><span class="line">git pull origin develop</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ $? <span class="_">-ne</span> 0 ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span>Error <span class="string">"update android_application_project from git failed"</span></span><br><span class="line">        <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> ../tools</span><br><span class="line">java -jar ECode.jar</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ $? <span class="_">-eq</span> 0 ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">cd</span> ../android_application_project</span><br><span class="line">        git commit -am <span class="string">"update clientErrorCode.json by jenkins auto script"</span></span><br><span class="line">        <span class="keyword">if</span> [ $?  <span class="_">-ne</span> 0 ]; <span class="keyword">then</span></span><br><span class="line">                <span class="built_in">echo</span>Error <span class="string">"commit android_application_project failed"</span></span><br><span class="line">                <span class="built_in">exit</span> 1</span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">        git push origin develop</span><br><span class="line">        <span class="keyword">if</span> [ $? <span class="_">-ne</span> 0 ]; <span class="keyword">then</span></span><br><span class="line">                <span class="built_in">echo</span>Error <span class="string">"push android_application_project failed"</span></span><br><span class="line">                <span class="built_in">exit</span> 1</span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">        <span class="built_in">exit</span> 0</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">        <span class="built_in">echo</span>Error <span class="string">"merge clientErrorCod.json failed"</span></span><br><span class="line">        <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/Nstd/Shell/blob/master/color.sh" target="_blank" rel="external">[color.sh] on Github</a></p>
+<h3 id="ECode-jar"><a href="#ECode-jar" class="headerlink" title="ECode.jar"></a>ECode.jar</h3><p><a href="https://github.com/Nstd/ErrorCodeTransformer" target="_blank" rel="external">[ECode.jar] on Github</a></p>
+<h2 id="三、结果"><a href="#三、结果" class="headerlink" title="三、结果"></a>三、结果</h2><p>一劳永逸，快哉。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://jingyan.baidu.com/article/ff42efa904b4d7c19e220282.html" target="_blank" rel="external">百度经验：打包可执行jar</a><br><a href="http://jingyan.baidu.com/article/219f4bf7d0ef87de442d3820.html" target="_blank" rel="external">百度经验：Eclipse jar打包</a><br><a href="http://www.cnblogs.com/adolfmc/archive/2012/10/07/2713562.html" target="_blank" rel="external">CNBlog：可执行jar引用其他jar</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/配置/" rel="tag">#配置</a>
+          
+            <a href="/tags/git/" rel="tag">#git</a>
+          
+            <a href="/tags/jenkins/" rel="tag">#jenkins</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/03/15/Stetho/" rel="next" title="Stetho">
+                <i class="fa fa-chevron-left"></i> Stetho
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/03/23/integrate-git-and-jenkins-auto-build/"
+           data-title="Git+Jenkins之自动构建" data-url="http://blog.aha-nstd.com/2016/03/23/integrate-git-and-jenkins-auto-build/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar-small.png"
+               alt="Nstd" />
+          <p class="site-author-name" itemprop="name">Nstd</p>
+          <p class="site-description motion-element" itemprop="description">码农学画中</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Nstd" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title">友链</div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://xtutu.me" target="_blank">土豪</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.mjshen.com" target="_blank">二敏</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://cashow.github.io/index.html" target="_blank">cashow</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、起因"><span class="nav-number">1.</span> <span class="nav-text">一、起因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、经过"><span class="nav-number">2.</span> <span class="nav-text">二、经过</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装插件"><span class="nav-number">2.1.</span> <span class="nav-text">安装插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置本地Git环境和Jenkins"><span class="nav-number">2.2.</span> <span class="nav-text">配置本地Git环境和Jenkins</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置Git"><span class="nav-number">2.2.1.</span> <span class="nav-text">配置Git</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置Jenkins"><span class="nav-number">2.2.2.</span> <span class="nav-text">配置Jenkins</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加Job"><span class="nav-number">2.3.</span> <span class="nav-text">添加Job</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#update-sh脚本"><span class="nav-number">2.4.</span> <span class="nav-text">update.sh脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ECode-jar"><span class="nav-number">2.5.</span> <span class="nav-text">ECode.jar</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、结果"><span class="nav-number">3.</span> <span class="nav-text">三、结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nstd</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+  &nbsp; | &nbsp;
+  <span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+  </span>
+  <span id="busuanzi_container_site_uv">
+    , 访客数<span id="busuanzi_value_site_uv"></span>人次 (Since 2015/01/30)
+  </span>
+</div>
+<div>
+
+</div>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<!-- <script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script> -->
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"nstd"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+
+  
+            
+<!-- <script>
+$(function(){
+  $("#posts img").lazyload({
+    placeholder: "http://7xs1tn.com1.z0.glb.clouddn.com/blog-loading.png",
+    effect: "fadeIn",
+    threshold: 200
+  });
+});
+</script> -->
+
+<script type="text/javascript">
+  var we = ["梦", "奶妈", "涛", "二敏", "嘻嘻", "钱哥", "叉叉", "胖虎", "小骚", "逗翔" , "漆雕", "玉雕", "涛雕", "果粒橙", "美君", "Young Phone", "白皙", "SEVEN", "公公", "PBJ"];
+  $("#u2014_u2014__u54C6_u5566_B7A_B7_u5927_u96C4").text("—— 哆啦·A·" + we[Math.floor(Math.random() * we.length)]);
+</script>
+
+</body>
+</html>

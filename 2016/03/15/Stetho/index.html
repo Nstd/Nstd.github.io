@@ -1,0 +1,943 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="Say8K4BYW_qZ6LC1iUbskQGzA8_0sVuBBYkvtNykLno" />
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="配置,android,stetho," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Nstd" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="什么是StethoStetho是Facebook出的一款Android调试工具我们可以用它在Chrome DevTools下查看应用的布局、网络请求、Sqlite、SharedPreference并能通过js来调试代码（使用js进行调试的时候FB只做了初步封装，使用起来会比较麻烦，需要自己进一步封装）
+来点截图（取自官网）Chrome DevTools
+查看网络请求
+数据库（可读写）
+查看布局（双">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Stetho">
+<meta property="og:url" content="http://blog.aha-nstd.com/2016/03/15/Stetho/index.html">
+<meta property="og:site_name" content="Nstd">
+<meta property="og:description" content="什么是StethoStetho是Facebook出的一款Android调试工具我们可以用它在Chrome DevTools下查看应用的布局、网络请求、Sqlite、SharedPreference并能通过js来调试代码（使用js进行调试的时候FB只做了初步封装，使用起来会比较麻烦，需要自己进一步封装）
+来点截图（取自官网）Chrome DevTools
+查看网络请求
+数据库（可读写）
+查看布局（双">
+<meta property="og:image" content="http://facebook.github.io/stetho/static/images/inspector-discovery.png">
+<meta property="og:image" content="http://facebook.github.io/stetho/static/images/inspector-network.png">
+<meta property="og:image" content="http://facebook.github.io/stetho/static/images/inspector-sqlite.png">
+<meta property="og:image" content="http://facebook.github.io/stetho/static/images/inspector-elements.png">
+<meta property="og:image" content="http://facebook.github.io/stetho/static/images/inspector-js.png">
+<meta property="og:updated_time" content="2016-03-23T03:52:35.382Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Stetho">
+<meta name="twitter:description" content="什么是StethoStetho是Facebook出的一款Android调试工具我们可以用它在Chrome DevTools下查看应用的布局、网络请求、Sqlite、SharedPreference并能通过js来调试代码（使用js进行调试的时候FB只做了初步封装，使用起来会比较麻烦，需要自己进一步封装）
+来点截图（取自官网）Chrome DevTools
+查看网络请求
+数据库（可读写）
+查看布局（双">
+<meta name="twitter:image" content="http://facebook.github.io/stetho/static/images/inspector-discovery.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <title> Stetho | Nstd </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-75334149-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?f453514ee5e5877ea008848d1d892156";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+    <div class="site-meta-headline">
+      <a>
+        <img class="custom-logo-image" src="/images/avatar.png"
+             alt="Nstd"/>
+      </a>
+    </div>
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Nstd</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-drawing">
+          <a href="/drawing" rel="section">
+            
+              <i class="menu-item-icon fa fa-paint-brush fa-fw"></i> <br />
+            
+            闲画
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Stetho
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-03-15T21:27:57+08:00" content="2016-03-15">
+              2016-03-15
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            <span id="busuanzi_container_page_pv">
+              &nbsp; | &nbsp; <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>次一面之缘
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/03/15/Stetho/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/15/Stetho/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="什么是Stetho"><a href="#什么是Stetho" class="headerlink" title="什么是Stetho"></a>什么是Stetho</h2><h3 id="Stetho是Facebook出的一款Android调试工具"><a href="#Stetho是Facebook出的一款Android调试工具" class="headerlink" title="Stetho是Facebook出的一款Android调试工具"></a>Stetho是Facebook出的一款Android调试工具</h3><p>我们可以用它在Chrome DevTools下查看应用的布局、网络请求、Sqlite、SharedPreference并能通过js来调试代码（使用js进行调试的时候FB只做了初步封装，使用起来会比较麻烦，需要自己进一步封装）</p>
+<h3 id="来点截图（取自官网）"><a href="#来点截图（取自官网）" class="headerlink" title="来点截图（取自官网）"></a>来点截图（取自<a href="http://facebook.github.io/stetho/" target="_blank" rel="external">官网</a>）</h3><h4 id="Chrome-DevTools"><a href="#Chrome-DevTools" class="headerlink" title="Chrome DevTools"></a>Chrome DevTools</h4><p><img src="http://facebook.github.io/stetho/static/images/inspector-discovery.png" alt="Chrome DevTools"></p>
+<h4 id="查看网络请求"><a href="#查看网络请求" class="headerlink" title="查看网络请求"></a>查看网络请求</h4><p><img src="http://facebook.github.io/stetho/static/images/inspector-network.png" alt="Network Inspection"></p>
+<h4 id="数据库（可读写）"><a href="#数据库（可读写）" class="headerlink" title="数据库（可读写）"></a>数据库（可读写）</h4><p><img src="http://facebook.github.io/stetho/static/images/inspector-sqlite.png" alt="Database Inspection"></p>
+<h4 id="查看布局（双向查看）"><a href="#查看布局（双向查看）" class="headerlink" title="查看布局（双向查看）"></a>查看布局（双向查看）</h4><ol>
+<li>用鼠标放在Element面板中的xml节点上，会在应用中高亮对应的布局</li>
+<li>点击Element左边的放大镜，然后点击应用中的布局，会自动跳转到Element面板中的xml节点<br><img src="http://facebook.github.io/stetho/static/images/inspector-elements.png" alt="View Hierarchy"></li>
+</ol>
+<h4 id="Javascript-Console"><a href="#Javascript-Console" class="headerlink" title="Javascript Console"></a>Javascript Console</h4><p><img src="http://facebook.github.io/stetho/static/images/inspector-js.png" alt="Javascript Console"><br><a id="more"></a></p>
+<h2 id="在代码中配置stetho"><a href="#在代码中配置stetho" class="headerlink" title="在代码中配置stetho"></a>在代码中配置stetho</h2><h3 id="build-gradle"><a href="#build-gradle" class="headerlink" title="build.gradle"></a>build.gradle</h3><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    <span class="comment">// 如果编译的时候出现OutOfMemory，添加以下配置</span></span><br><span class="line">    dexOptions &#123;</span><br><span class="line">        incremental <span class="keyword">true</span></span><br><span class="line">        javaMaxHeapSize <span class="string">"4g"</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    buildTypes &#123;</span><br><span class="line">        debug &#123;</span><br><span class="line">            <span class="comment">// 如果因为加了stetho导致DexIndexOverflowException，需要添加以下配置</span></span><br><span class="line">            multiDexEnabled <span class="keyword">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">    <span class="comment">// 只在debug版中加入stetho</span></span><br><span class="line">    debugCompile <span class="string">'com.facebook.stetho:stetho:1.3.1'</span></span><br><span class="line">    debugCompile <span class="string">'com.facebook.stetho:stetho-js-rhino:1.3.1'</span>    </span><br><span class="line">    <span class="comment">//debugCompile 'com.facebook.stetho:stetho-urlconnection:1.3.1'</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 如果因为加了stetho导致DexIndexOverflowException，需要添加以下配置</span></span><br><span class="line">    debugCompile <span class="string">'com.android.support:multidex:1.0.1'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="YourApplication-java"><a href="#YourApplication-java" class="headerlink" title="YourApplication.java"></a>YourApplication.java</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 当前界面显示的Activity，供Console调用</span></span><br><span class="line"><span class="keyword">private</span> Activity mAct = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方便从Console中通过变量名获取mAct对象</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Activity <span class="title">getmAct</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span>  mAct;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 从java代码中获取、设置mAct</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Activity <span class="title">getCurrentActivity</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> mAct;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCurrentActivity</span><span class="params">(Activity act)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.mAct = act;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onCreate();</span><br><span class="line">    DebugUtils.init(context);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="BaseActivity-java"><a href="#BaseActivity-java" class="headerlink" title="BaseActivity.java"></a>BaseActivity.java</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*******************************************************</span><br><span class="line"> * 使用的Activity尽量继承自BaseActivity，以减少配置代码</span><br><span class="line"> *******************************************************/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 可以在Console中通过context.mAct.getField()的方式获取私有变量的值</span></span><br><span class="line"><span class="comment">// 把获取的逻辑封装到DebugUtils中，以解除不必要的麻烦</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">getField</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> DebugUtils.getActField(<span class="keyword">this</span>, name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 取消引用</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">clearReferences</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    YourApplication app = ((YourApplication)getApplicationContext());</span><br><span class="line">    Activity currActivity = app.getCurrentActivity();</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">this</span>.equals(currActivity)) &#123;</span><br><span class="line">        app.setCurrentActivity(<span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onResume</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    ((YourApplication)getApplicationContext()).setCurrentActivity(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onPause</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    clearReferences();</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onDestroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    clearReferences();</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="DebugUtils-java"><a href="#DebugUtils-java" class="headerlink" title="DebugUtils.java"></a>DebugUtils.java</h3><p>因为不想把stetho添加到release中，所以需要通过gradle的buildType特性，对debug版和release版做不同处理</p>
+<h4 id="debug的配置"><a href="#debug的配置" class="headerlink" title="debug的配置"></a>debug的配置</h4><p>在src目录下添加debug/java目录，并在java目录中添加相应的package（比如，DebugUtils将添加到com.yourname.tools.util中，那么就在debug/java目录中新建com.yourname.tools.util包，并在util包下新建DebugUtils.java文件）<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yourname.tools.util;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.app.Activity;</span><br><span class="line"><span class="keyword">import</span> android.content.Context;</span><br><span class="line"><span class="keyword">import</span> android.support.multidex.MultiDex;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.facebook.stetho.Stetho;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * Created by Nstd on 2016/3/14.</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DebugUtils</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(<span class="keyword">final</span> Context context)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 如果因为加了stetho导致DexIndexOverflowException，需要添加以下配置</span></span><br><span class="line">        MultiDex.install(context);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 以下是Stetho配置</span></span><br><span class="line">        Stetho.initialize(</span><br><span class="line">            Stetho.newInitializerBuilder(context)</span><br><span class="line">                .enableDumpapp(</span><br><span class="line">                        Stetho.defaultDumperPluginsProvider(context))</span><br><span class="line">                .enableWebKitInspector(</span><br><span class="line">                        Stetho.defaultInspectorModulesProvider(context))</span><br><span class="line">                .build());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 通过反射获取activity中的私有变量</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">getActField</span><span class="params">(Activity activity, String fieldName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Field f = activity.getClass().getDeclaredField(fieldName);</span><br><span class="line">            f.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">            <span class="keyword">return</span> f.get(activity);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NoSuchFieldException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="release的配置"><a href="#release的配置" class="headerlink" title="release的配置"></a>release的配置</h4><p>在src目录下添加release/java目录，并在java目录中添加相应的package（文件名同上，但是里面的函数都是空实现）<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.haizitong.minhang.Tool.util;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.content.Context;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * Created by Nstd on 2016/3/14.</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DebugUtils</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// release version: empty code</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">getActField</span><span class="params">(Activity activity, String fieldName)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//release version: return null</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="其他buildType的配置（参照debug或release）"><a href="#其他buildType的配置（参照debug或release）" class="headerlink" title="其他buildType的配置（参照debug或release）"></a>其他buildType的配置（参照debug或release）</h4><h4 id="PS：网络配置"><a href="#PS：网络配置" class="headerlink" title="PS：网络配置"></a>PS：网络配置</h4><p>公司现在用的是HttpUrlConnection，Stetho配置这个的时候侵入性比较强，暂时也用不到，所以不做配置<br>如果需要HttpUrlConnection的配置，可以参看官网Demo的<a href="https://github.com/facebook/stetho/blob/master/stetho-sample/src/main/java/com/facebook/stetho/sample/Networker.java" target="_blank" rel="external">配置</a><br>如果用的是okhttp，可以参看官网的这个<a href="http://facebook.github.io/stetho/#integrations" target="_blank" rel="external">配置</a></p>
+<h2 id="编译运行应用"><a href="#编译运行应用" class="headerlink" title="编译运行应用"></a>编译运行应用</h2><h2 id="启动dev控制台"><a href="#启动dev控制台" class="headerlink" title="启动dev控制台"></a>启动dev控制台</h2><p>在Chrome的地址栏中输入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chrome://inspect</span><br></pre></td></tr></table></figure></p>
+<p>启动以后，在页面上应该会出现对应的包名、应用名称，选择需要调试的应用，点击 <font style="color:rgb(0, 194, 255);">inspect </font>，开始调试</p>
+<h3 id="PS：一直加载刷新不出来"><a href="#PS：一直加载刷新不出来" class="headerlink" title="PS：一直加载刷新不出来"></a>PS：一直加载刷新不出来</h3><p>如果启动后一直是加载状态，需要使用VPN翻墙，成功加载一次以后就不需要了</p>
+<h2 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h2><h3 id="Elements面板"><a href="#Elements面板" class="headerlink" title="Elements面板"></a>Elements面板</h3><ol>
+<li>可以查看当前Activity的布局;</li>
+<li>Elements显示的xml中，YourApplication是根节点，直属子节点是对应的Activity，如果跳转到新的Activity，新的Activity会堆叠到旧Activity之上，就像栈一样;</li>
+<li>在Elements的xml节点上移动鼠标，会在手机屏幕上高亮显示对应的区域;</li>
+<li>点击Elements旁边的放大镜（变成蓝色），然后点击屏幕，随后xml会自动定位到你点击的节点;</li>
+<li>在Styles面板中可以看到布局元素的属性值.</li>
+<li></li>
+</ol>
+<ul>
+<li>bug？<br>查看不了Dialog的布局信息</li>
+</ul>
+<h3 id="Resource面板"><a href="#Resource面板" class="headerlink" title="Resource面板"></a>Resource面板</h3><ol>
+<li>Web SQL：中可以查看Sqlite的信息<ul>
+<li>点击数据库名称，可以输入sql语句直接操作数据库</li>
+<li>点击表名，可以查看该表的所有数据</li>
+</ul>
+</li>
+<li>Local Storage：中可以查看SharedPreferences的信息</li>
+</ol>
+<h3 id="Console面板"><a href="#Console面板" class="headerlink" title="Console面板"></a>Console面板</h3><ol>
+<li>context相当于Application对象</li>
+<li>如果加入了之前的封装（DebugUtils等）<ul>
+<li>通过context.mAct获得当前windows中的Activity</li>
+<li>通过context.mAct.公有属性名，可以获取mAct中public属性变量的值</li>
+<li>通过context.mAct.getField(fieldName)可以获取到这个Activity中的私有变量值（当然也可以获取public的）</li>
+</ul>
+</li>
+<li>如果获取的是一个对象，eg：context.mAct.mTvMessage（mTvMessage是个TextView），可能不能直接操作该对象的方法，需要使用importPackage(android.widget)，引入该对象所在的包（将包内的所有java对象引入到jsRuntime中）；或者使用importClass(android.widget.TextView)，只引入TextView对象，此时才能使用context.mAct.mTvMessage.getText()方法</li>
+</ol>
+<h2 id="PS：其他"><a href="#PS：其他" class="headerlink" title="PS：其他"></a>PS：其他</h2><h3 id="代码"><a href="#代码" class="headerlink" title="- 代码"></a>- 代码</h3><p><a href="https://github.com/Nstd/AndroidTools" target="_blank" rel="external">前往GitHub</a></p>
+<h3 id="Android-Studio"><a href="#Android-Studio" class="headerlink" title="- Android Studio"></a>- Android Studio</h3><p>如果觉得Android Studio卡，可以尝试修改Studio的配置，增加其使用的内存大小<br>window下：<br>studio安装目录\bin\sudio64.exe.vmoptions:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-Xmx4096m</span><br><span class="line">-XX:MaxPermSize=1024m</span><br></pre></td></tr></table></figure></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="http://facebook.github.io/stetho" target="_blank" rel="external">官网文档</a></li>
+<li><a href="https://github.com/facebook/stetho" target="_blank" rel="external">官方Github-stetho</a></li>
+<li><a href="https://github.com/facebook/stetho/tree/master/stetho-js-rhino" target="_blank" rel="external">官方Github-stetho-js-rhino</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/Rhino/Scripting_Java" title="Javascript Console中可用的相关知识" target="_blank" rel="external">Scripting Java</a></li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/配置/" rel="tag">#配置</a>
+          
+            <a href="/tags/android/" rel="tag">#android</a>
+          
+            <a href="/tags/stetho/" rel="tag">#stetho</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/02/14/about-learning/" rel="next" title="关于学习">
+                <i class="fa fa-chevron-left"></i> 关于学习
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/03/23/integrate-git-and-jenkins-auto-build/" rel="prev" title="Git+Jenkins之自动构建">
+                Git+Jenkins之自动构建 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/03/15/Stetho/"
+           data-title="Stetho" data-url="http://blog.aha-nstd.com/2016/03/15/Stetho/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar-small.png"
+               alt="Nstd" />
+          <p class="site-author-name" itemprop="name">Nstd</p>
+          <p class="site-description motion-element" itemprop="description">码农学画中</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Nstd" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title">友链</div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://xtutu.me" target="_blank">土豪</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.mjshen.com" target="_blank">二敏</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://cashow.github.io/index.html" target="_blank">cashow</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是Stetho"><span class="nav-number">1.</span> <span class="nav-text">什么是Stetho</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Stetho是Facebook出的一款Android调试工具"><span class="nav-number">1.1.</span> <span class="nav-text">Stetho是Facebook出的一款Android调试工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#来点截图（取自官网）"><span class="nav-number">1.2.</span> <span class="nav-text">来点截图（取自官网）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Chrome-DevTools"><span class="nav-number">1.2.1.</span> <span class="nav-text">Chrome DevTools</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看网络请求"><span class="nav-number">1.2.2.</span> <span class="nav-text">查看网络请求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据库（可读写）"><span class="nav-number">1.2.3.</span> <span class="nav-text">数据库（可读写）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看布局（双向查看）"><span class="nav-number">1.2.4.</span> <span class="nav-text">查看布局（双向查看）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Javascript-Console"><span class="nav-number">1.2.5.</span> <span class="nav-text">Javascript Console</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在代码中配置stetho"><span class="nav-number">2.</span> <span class="nav-text">在代码中配置stetho</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#build-gradle"><span class="nav-number">2.1.</span> <span class="nav-text">build.gradle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#YourApplication-java"><span class="nav-number">2.2.</span> <span class="nav-text">YourApplication.java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BaseActivity-java"><span class="nav-number">2.3.</span> <span class="nav-text">BaseActivity.java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DebugUtils-java"><span class="nav-number">2.4.</span> <span class="nav-text">DebugUtils.java</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#debug的配置"><span class="nav-number">2.4.1.</span> <span class="nav-text">debug的配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#release的配置"><span class="nav-number">2.4.2.</span> <span class="nav-text">release的配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他buildType的配置（参照debug或release）"><span class="nav-number">2.4.3.</span> <span class="nav-text">其他buildType的配置（参照debug或release）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PS：网络配置"><span class="nav-number">2.4.4.</span> <span class="nav-text">PS：网络配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译运行应用"><span class="nav-number">3.</span> <span class="nav-text">编译运行应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动dev控制台"><span class="nav-number">4.</span> <span class="nav-text">启动dev控制台</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PS：一直加载刷新不出来"><span class="nav-number">4.1.</span> <span class="nav-text">PS：一直加载刷新不出来</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调试"><span class="nav-number">5.</span> <span class="nav-text">调试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Elements面板"><span class="nav-number">5.1.</span> <span class="nav-text">Elements面板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Resource面板"><span class="nav-number">5.2.</span> <span class="nav-text">Resource面板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Console面板"><span class="nav-number">5.3.</span> <span class="nav-text">Console面板</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PS：其他"><span class="nav-number">6.</span> <span class="nav-text">PS：其他</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">6.1.</span> <span class="nav-text">- 代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android-Studio"><span class="nav-number">6.2.</span> <span class="nav-text">- Android Studio</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nstd</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+  &nbsp; | &nbsp;
+  <span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+  </span>
+  <span id="busuanzi_container_site_uv">
+    , 访客数<span id="busuanzi_value_site_uv"></span>人次 (Since 2015/01/30)
+  </span>
+</div>
+<div>
+
+</div>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<!-- <script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script> -->
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"nstd"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+
+  
+            
+<!-- <script>
+$(function(){
+  $("#posts img").lazyload({
+    placeholder: "http://7xs1tn.com1.z0.glb.clouddn.com/blog-loading.png",
+    effect: "fadeIn",
+    threshold: 200
+  });
+});
+</script> -->
+
+<script type="text/javascript">
+  var we = ["梦", "奶妈", "涛", "二敏", "嘻嘻", "钱哥", "叉叉", "胖虎", "小骚", "逗翔" , "漆雕", "玉雕", "涛雕", "果粒橙", "美君", "Young Phone", "白皙", "SEVEN", "公公", "PBJ"];
+  $("#u2014_u2014__u54C6_u5566_B7A_B7_u5927_u96C4").text("—— 哆啦·A·" + we[Math.floor(Math.random() * we.length)]);
+</script>
+
+</body>
+</html>
