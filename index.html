@@ -268,6 +268,386 @@
             
               
                 
+                <a class="post-title-link" href="/2017/03/03/common-lang3-package/" itemprop="url">
+                  common-lang3 简摘
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-03-03T17:45:35+08:00" content="2017-03-03">
+              2017-03-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/03/03/common-lang3-package/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/03/common-lang3-package/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="ArraysUtils"><a href="#ArraysUtils" class="headerlink" title="ArraysUtils:"></a>ArraysUtils:</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这个类的很多方法都有做数组为空的判断</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//数组转字符串，便于打印日志</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">toString</span><span class="params">(Object array)</span></span>;</span><br><span class="line"><span class="comment">//数组转Map，Entry数组或者n行2列的数组才行</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Map&lt;Object, Object&gt; <span class="title">toMap</span><span class="params">(Object[] array)</span></span>;</span><br><span class="line"><span class="comment">//如果数组为null，返回一个空数组，否则返回本身</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> ..[] nullToEmpty(..[] array);</span><br><span class="line"><span class="comment">//取数组的一个前闭后开的区间</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> ..[] subarray(..[] array, <span class="keyword">int</span> startIndexInclusive, <span class="keyword">int</span> endIndexExclusive);</span><br><span class="line"><span class="comment">//数组是否等长，一个为null，一个为空也算等长</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isSameLength</span><span class="params">(..[] array1, ..[] array2)</span></span>;</span><br><span class="line"><span class="comment">//包装类型和原始类型互换</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] toPrimitive(Integer[] array);</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] toPrimitive(Integer[] array, <span class="keyword">int</span> valueForNull);</span><br><span class="line"><span class="comment">//原始类型和包装类型互换</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Integer[] toObject(in[] array);</span><br><span class="line"><span class="comment">//返回array1和array2合并后的结果，并不改变原始数组</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> T[] addAll(T[] array1, T.. array2);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>array强转成object，然后通过getClass().getComponentType()可以获取到数组的实际类型，可以由此做些统一的逻辑处理</li>
+</ul>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/03/03/common-lang3-package/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/04/CodeFights-Challenges-Cipher-Zeroes/" itemprop="url">
+                  CodeFights Challenges Cipher_Zeroes
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-04T18:17:51+08:00" content="2016-06-04">
+              2016-06-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/CodeFights/" itemprop="url" rel="index">
+                    <span itemprop="name">CodeFights</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/04/CodeFights-Challenges-Cipher-Zeroes/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/04/CodeFights-Challenges-Cipher-Zeroes/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="- 写在前面"></a>- 写在前面</h2><p>最近在玩CodeFights（一个进行在线编程PK的网站），这个网站蛮有意思的。相比于ACM的题目，这里的可能简单一点，不过做了几场感觉学到不少（因为可以看别人代码啊！！！）。主要玩法有两种：</p>
+<ol>
+<li>CodeWriting：根据题意，完成一个实现相应功能的函数（代码长度越短【空格、回车、注释不记长度】、耗时越少排名越高）</li>
+<li>Bugfix：给出一段有bug的代码，根据题意修复代码</li>
+</ol>
+<p>为了记录和总结，以后如果有看到好的解法、思路都会在博客中分享出来！</p>
+<h2 id="题目-Cipher-Zeroes"><a href="#题目-Cipher-Zeroes" class="headerlink" title="- 题目 Cipher_Zeroes"></a>- 题目 <a href="https://codefights.com/challenge/x9TcPgiFRmgN22W44/main">Cipher_Zeroes</a></h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>假如有如下前提：</p>
+<ul>
+<li>0, 6, 9 这三个数中有一个可见的0</li>
+<li>8 有两个可见的0</li>
+<li>其他数字没有可见的0</li>
+</ul>
+<p>给定一串数字N，假设M是N中可见0的个数，如果M是大于0的偶数，返回M-1的二进制形式；如果M是奇数，返回M+1的二进制形式；否则返回0。</p>
+<p>补全如下函数（java 版）：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Cipher_Zeroes</span><span class="params">(String N)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="样例"><a href="#样例" class="headerlink" title="样例"></a>样例</h3><blockquote>
+<p>N = “565”<br>Cipher_Zeroes(N) = 10</p>
+<p>解释：<br>565 中只有6有一个可见0，即：M<sub>1</sub> = 1<br>M1是奇数，所以结果要加1，M<sub>2</sub> = 2<br>最终结果为：2<sub>10</sub> = 10<sub>2</sub></p>
+</blockquote>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/06/04/CodeFights-Challenges-Cipher-Zeroes/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/28/webview-pause-audio/" itemprop="url">
+                  Android webview 之onPause暂停audio播放
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-28T10:44:31+08:00" content="2016-05-28">
+              2016-05-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/28/webview-pause-audio/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/28/webview-pause-audio/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="What"><a href="#What" class="headerlink" title="What"></a>What</h2><p>最近，公司里的老司机在帮测试测app的时候，发现一个bug：android端，用webview打开一个活动页，点击活动页中的音乐进行播放，退出webview之后音乐仍在继续播放。</p>
+<p>这个bug之前在浏览技术文章的时候有见过，不过当时只是了解了大致的原因，在脑子里做了个问题的索引，并没有索引解决办法。</p>
+<p>不过大致方向有了，就和老司机说“这个bug我来解”</p>
+<p><img src="http://7xs1tn.com1.z0.glb.clouddn.com/blog-2628941275.gif" alt="英雄气概.gif"><br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/05/28/webview-pause-audio/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/03/23/integrate-git-and-jenkins-auto-build/" itemprop="url">
                   Git+Jenkins之自动构建
                 </a>
@@ -504,367 +884,13 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/02/14/about-learning/" itemprop="url">
-                  关于学习
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-02-14T21:29:53+08:00" content="2016-02-14">
-              2016-02-14
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/随笔/" itemprop="url" rel="index">
-                    <span itemprop="name">随笔</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/02/14/about-learning/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/02/14/about-learning/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="What-amp-Why"><a href="#What-amp-Why" class="headerlink" title="What &amp; Why"></a>What &amp; Why</h2><p>我们对这个世界的依恋或迷恋，是我们活下去的动力，而这种迷恋或多或少会以不同的方式成瘾，不理解的人唾之恨之，唯独只有自己知道个中缘由，所以我们需要一套坚固的自我价值体系。<br>然而任何体系都不是完善的，假如不辩证地持守自我体系，迟早会把自己逼入钻牛角尖的境地，时常更新完善这个体系，才能让我们更好地面对自己以及他人。为了完善它，放下羞怯、要面子以及其他会阻碍自己获得充实感的心理因素，自觉或者不自觉地去学习、吸收。<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/02/14/about-learning/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/01/30/CSS-layout-postion-float-z-index/" itemprop="url">
-                  CSS布局之postion、float、z-index
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-01-30T16:48:50+08:00" content="2016-01-30">
-              2016-01-30
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/web/" itemprop="url" rel="index">
-                    <span itemprop="name">web</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/01/30/CSS-layout-postion-float-z-index/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/30/CSS-layout-postion-float-z-index/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="position（属性）"><a href="#position（属性）" class="headerlink" title="position（属性）"></a>position（属性）</h2><ul>
-<li><p><strong><em>static</em></strong><br>如果没有指定position，浏览器默认position为static，元素处于文档流中，浏览器根据标签来识别到底是块元素还是行内元素。指定的top、right、bottom、left、z-index皆无效，文档流后面的节点会遮盖前面的节点。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/01/30/CSS-layout-postion-float-z-index/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/01/30/hello-world/" itemprop="url">
-                  Hello World
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-01-30T16:48:00+08:00" content="2016-01-30">
-              2016-01-30
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/test/" itemprop="url" rel="index">
-                    <span itemprop="name">test</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/01/30/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/30/hello-world/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Welcome to <a href="http://hexo.io/">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/01/30/hello-world/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -903,7 +929,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-count">8</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -911,7 +937,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -920,7 +946,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -993,7 +1019,7 @@
         <div class="copyright" >
   
   &copy;  2015 - 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -1120,6 +1146,30 @@
   
   
   
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+
+  
+    <script type="text/javascript" src="http://cdn.staticfile.org/mathjax/2.4.0/MathJax.js"></script>
+    <script type="text/javascript" src="http://cdn.staticfile.org/mathjax/2.4.0/config/TeX-AMS-MML_HTMLorMML.js"></script>
+  
+
 
   
 

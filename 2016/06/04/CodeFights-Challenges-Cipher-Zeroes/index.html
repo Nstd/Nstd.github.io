@@ -1,0 +1,984 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="Say8K4BYW_qZ6LC1iUbskQGzA8_0sVuBBYkvtNykLno" />
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="CodeFights,String,Binary," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Nstd" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="- 写在前面最近在玩CodeFights（一个进行在线编程PK的网站），这个网站蛮有意思的。相比于ACM的题目，这里的可能简单一点，不过做了几场感觉学到不少（因为可以看别人代码啊！！！）。主要玩法有两种：
+
+CodeWriting：根据题意，完成一个实现相应功能的函数（代码长度越短【空格、回车、注释不记长度】、耗时越少排名越高）
+Bugfix：给出一段有bug的代码，根据题意修复代码
+
+为了记录和">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CodeFights Challenges Cipher_Zeroes">
+<meta property="og:url" content="http://blog.aha-nstd.com/2016/06/04/CodeFights-Challenges-Cipher-Zeroes/index.html">
+<meta property="og:site_name" content="Nstd">
+<meta property="og:description" content="- 写在前面最近在玩CodeFights（一个进行在线编程PK的网站），这个网站蛮有意思的。相比于ACM的题目，这里的可能简单一点，不过做了几场感觉学到不少（因为可以看别人代码啊！！！）。主要玩法有两种：
+
+CodeWriting：根据题意，完成一个实现相应功能的函数（代码长度越短【空格、回车、注释不记长度】、耗时越少排名越高）
+Bugfix：给出一段有bug的代码，根据题意修复代码
+
+为了记录和">
+<meta property="og:updated_time" content="2017-03-03T09:39:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CodeFights Challenges Cipher_Zeroes">
+<meta name="twitter:description" content="- 写在前面最近在玩CodeFights（一个进行在线编程PK的网站），这个网站蛮有意思的。相比于ACM的题目，这里的可能简单一点，不过做了几场感觉学到不少（因为可以看别人代码啊！！！）。主要玩法有两种：
+
+CodeWriting：根据题意，完成一个实现相应功能的函数（代码长度越短【空格、回车、注释不记长度】、耗时越少排名越高）
+Bugfix：给出一段有bug的代码，根据题意修复代码
+
+为了记录和">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <title> CodeFights Challenges Cipher_Zeroes | Nstd </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-75334149-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?f453514ee5e5877ea008848d1d892156";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+    <div class="site-meta-headline">
+      <a>
+        <img class="custom-logo-image" src="/images/avatar.png"
+             alt="Nstd"/>
+      </a>
+    </div>
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Nstd</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-drawing">
+          <a href="/drawing" rel="section">
+            
+              <i class="menu-item-icon fa fa-paint-brush fa-fw"></i> <br />
+            
+            闲画
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CodeFights Challenges Cipher_Zeroes
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-04T18:17:51+08:00" content="2016-06-04">
+              2016-06-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/CodeFights/" itemprop="url" rel="index">
+                    <span itemprop="name">CodeFights</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            <span id="busuanzi_container_page_pv">
+              &nbsp; | &nbsp; <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>次一面之缘
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/04/CodeFights-Challenges-Cipher-Zeroes/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/04/CodeFights-Challenges-Cipher-Zeroes/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="- 写在前面"></a>- 写在前面</h2><p>最近在玩CodeFights（一个进行在线编程PK的网站），这个网站蛮有意思的。相比于ACM的题目，这里的可能简单一点，不过做了几场感觉学到不少（因为可以看别人代码啊！！！）。主要玩法有两种：</p>
+<ol>
+<li>CodeWriting：根据题意，完成一个实现相应功能的函数（代码长度越短【空格、回车、注释不记长度】、耗时越少排名越高）</li>
+<li>Bugfix：给出一段有bug的代码，根据题意修复代码</li>
+</ol>
+<p>为了记录和总结，以后如果有看到好的解法、思路都会在博客中分享出来！</p>
+<h2 id="题目-Cipher-Zeroes"><a href="#题目-Cipher-Zeroes" class="headerlink" title="- 题目 Cipher_Zeroes"></a>- 题目 <a href="https://codefights.com/challenge/x9TcPgiFRmgN22W44/main" target="_blank" rel="external">Cipher_Zeroes</a></h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>假如有如下前提：</p>
+<ul>
+<li>0, 6, 9 这三个数中有一个可见的0</li>
+<li>8 有两个可见的0</li>
+<li>其他数字没有可见的0</li>
+</ul>
+<p>给定一串数字N，假设M是N中可见0的个数，如果M是大于0的偶数，返回M-1的二进制形式；如果M是奇数，返回M+1的二进制形式；否则返回0。</p>
+<p>补全如下函数（java 版）：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Cipher_Zeroes</span><span class="params">(String N)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="样例"><a href="#样例" class="headerlink" title="样例"></a>样例</h3><blockquote>
+<p>N = “565”<br>Cipher_Zeroes(N) = 10</p>
+<p>解释：<br>565 中只有6有一个可见0，即：M<sub>1</sub> = 1<br>M1是奇数，所以结果要加1，M<sub>2</sub> = 2<br>最终结果为：2<sub>10</sub> = 10<sub>2</sub></p>
+</blockquote>
+<a id="more"></a>
+<h2 id="分析"><a href="#分析" class="headerlink" title="- 分析"></a>- 分析</h2><h3 id="我的思路"><a href="#我的思路" class="headerlink" title="我的思路"></a>我的思路</h3><ol>
+<li>根据前提统计可见0的个数</li>
+<li>判奇偶</li>
+<li>用系统函数Integer.parseInt(Integer.toBinaryString(s));返回结果。</li>
+</ol>
+<p>为了使代码尽量短，判断0、6、9的时候不能用 d == 0 || d == 6 || d == 9 的形式（16个字符），因为都是3的倍数，可以用模3的形式判断 d % 3 == 0 &amp;&amp; d != 3 （12个字符）</p>
+<p>代码如下（176个有效字符，为了方便，以后将省略中文，直接标数字）：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> s, d;                                               <span class="comment">//0-7字符</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Cipher_Zeroes</span><span class="params">(String N)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">char</span> c : N.toCharArray()) &#123;                     <span class="comment">//1-67字符</span></span><br><span class="line">        d = c - <span class="string">'0'</span>;</span><br><span class="line">        s += (d % <span class="number">3</span> == <span class="number">0</span> &amp;&amp; d != <span class="number">3</span> ? <span class="number">1</span> : (d == <span class="number">8</span> ? <span class="number">2</span> : <span class="number">0</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    s += (s % <span class="number">2</span> == <span class="number">1</span> ? <span class="number">1</span> : (s &gt; <span class="number">0</span> ? -<span class="number">1</span> : <span class="number">0</span>));           <span class="comment">//2-25字符</span></span><br><span class="line">    <span class="keyword">return</span> Integer.parseInt(Integer.toBinaryString(s)); <span class="comment">//3-50字符</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当时已经有上百人提交答案了，而从solutions board看到最短代码才124个字符，差了1/3啊！离Challenges结束还有近1个小时，但是又想不到更好的解法，有点抓狂。在漫长地等待之后，满怀着期待与憧憬终于可以看到别人的思路了，简直比洞房花烛夜等待揭开新娘的面纱还要焦急(／‵Д′)／~ ╧╧</p>
+<p><strong>看了前3页的答案之后，有种脑洞被打开的感觉！！！</strong></p>
+<h3 id="别人的思路"><a href="#别人的思路" class="headerlink" title="别人的思路"></a>别人的思路</h3><p>别人普遍使用的是<em>查表法</em>，不过有三种查表的方法，真他妈神奇！</p>
+<ol>
+<li><p>方法一（144）</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//from: sameerkhan2k</span></span><br><span class="line"><span class="keyword">int</span> c, r, d = <span class="number">1</span>;                                            <span class="comment">//0-11</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Cipher_Zeroes</span><span class="params">(String n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i: n.getBytes())                               <span class="comment">//1-54</span></span><br><span class="line">        c += <span class="string">"1000001021"</span>.charAt(i - <span class="number">48</span>) - <span class="number">48</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> ( c += c % <span class="number">2</span> &lt; <span class="number">1</span>? -<span class="number">1</span>: <span class="number">1</span>; c &gt; <span class="number">0</span>; c /= <span class="number">2</span>, d *= <span class="number">10</span>)    <span class="comment">//2、3-44</span></span><br><span class="line">        r += d * (c &amp; <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> r;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 第一步，这是最直观的字符串查表法。</p>
+<blockquote>
+<p>0 ==&gt; “1”<br> 1 ==&gt; “0”<br> 2 ==&gt; “0”<br> :<br> 6 ==&gt; “1”<br> 7 ==&gt; “0”<br> 8 ==&gt; “2”<br> 9 ==&gt; “1”</p>
+</blockquote>
+<p> 第二步和第三步合并了，没用系统函数而是手动计算的。</p>
+</li>
+<li><p>方法二（129）</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//from: todayhumor</span></span><br><span class="line"><span class="keyword">int</span> h;</span><br><span class="line">Integer I;                                              <span class="comment">//0-14</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Cipher_Zeroes</span><span class="params">(String N)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> e:N.getBytes())                            <span class="comment">//1-42</span></span><br><span class="line">        h += <span class="number">397313</span> &gt;&gt; e*<span class="number">2</span>-<span class="number">96</span> &amp; <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">return</span> I.decode(I.toString(h&gt;<span class="number">0</span>?h+h%<span class="number">2</span>*<span class="number">2</span> - <span class="number">1</span>:<span class="number">0</span>,<span class="number">2</span>));   <span class="comment">//2、3-46</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 对于 397313 这个神奇的网站，哦不，神奇的数字，大家可能一头雾水，我们先把Magic Number 397313 转成二进制以后看看：1100001000000000001。<br> 光看这个数其实还看不出什么，咱往后再瞧瞧。<br> e是每个字符的int值，从’0’到’9’对应48到57，随便代入两个值到 += 后面的表达式试试：</p>
+<blockquote>
+<ul>
+<li><p>当 e = 48 (‘0’)时<br>e * 2 - 96 = 0<br>1 10 00 01 00 00 00 00 00 01<sub>2</sub> &amp; 3<sub>10</sub> = 1</p>
+</li>
+<li><p>当 e = 49 (‘1’)时<br>e * 2 - 96 = 2<br>1 10 00 01 00 00 00 00 00 <span style="color:#E0E0E0;">01</span><sub>2</sub> &amp; 3<sub>10</sub> = 0</p>
+</li>
+<li><p>当 e = 56 (‘8’)时<br>e * 2 - 96 = 16<br>1 10 <span style="color:#E0E0E0;">00 01 00 00 00 00 00 01</span><sub>2</sub> &amp; 3<sub>10</sub> = 2</p>
+</li>
+<li><p>当 e = 57 (‘9’)时<br>e * 2 - 96 = 18<br>1 <span style="color:#E0E0E0;">10 00 01 00 00 00 00 00 01</span><sub>2</sub> &amp; 3<sub>10</sub> = 1</p>
+</li>
+</ul>
+</blockquote>
+<p> 恍然大悟，这是神奇的二进制查表法！！<br> 1100001000000000001 从右往左每两位组成表中的一个值，通过右移操作，移到表中的指定位置，用3<sub>10</sub> =&gt; 11<sub>2</sub>这个mask取出对应位置的值。不过用二进制表的时候，有个字段长度的限制，最多只能用于64位的表（long）。</p>
+<p> 第二步的奇数+1，偶数-1实现的也蛮有意思的：</p>
+<blockquote>
+<p>h + h % 2 * 2 - 1</p>
+</blockquote>
+<p> 才知道，Integer.decode()方法能将字符串型的数字转为数字。</p>
+</li>
+<li><p>方法三（124）</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">//from: zerael</span></span><br><span class="line">   <span class="function"><span class="keyword">int</span> <span class="title">Cipher_Zeroes</span><span class="params">(String N)</span> </span>&#123;</span><br><span class="line">       Integer r = N.replaceAll(<span class="string">"(8)|[^690]"</span>, <span class="string">"$1$1"</span>).length()+<span class="number">1</span>^<span class="number">1</span>; <span class="comment">//0、1-56</span></span><br><span class="line">       <span class="keyword">return</span> r.valueOf(r.toString(r&gt;<span class="number">0</span> ? r-<span class="number">1</span> : <span class="number">0</span>, <span class="number">2</span>));              <span class="comment">//2、3-41</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 这人竟然用正则替换，弄了一个转换表出来！WTF！<br> 这个正则替换的意思是：<br> 当前字符如果是8，将其替换为88（\$1是使用第一个捕获的分组进行替换，也就是小括号中的8）；当前字符如果不是6、9、0（也就是1、2、3、4、5、7），将其替换为空（因为[^690]没有被包在分组中，所以\$1不起效）；其他（6、9、0）维持不变。</p>
+<blockquote>
+<p>举两个例子：</p>
+<p>“565”.replaceAll(“(8)|[^690]”, “\$1\$1”).length() + 1 ^ 1<br>==&gt; “6”.length() + 1 ^ 1<br>==&gt; 1 + 1 ^ 1<br>==&gt; 3</p>
+<p>“8200”.replaceAll(“(8)|[^690]”, “\$1\$1”).length() + 1 ^ 1<br>==&gt; “8800”.length() + 1 ^ 1<br>==&gt; 4 + 1 ^ 1<br>==&gt; 4</p>
+</blockquote>
+<p> 第一行，其实是把第一步和第二步的一半合并了。<br> 第二步的奇数+1，偶数-1实现方式：</p>
+<blockquote>
+<p>(n + 1 ^ 1) - 1</p>
+</blockquote>
+<p> 才知道，Integer的toString()方法能指定转换的基数。</p>
+</li>
+</ol>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="-写在最后"></a>-写在最后</h2><p>有趣！！！</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CodeFights/" rel="tag">#CodeFights</a>
+          
+            <a href="/tags/String/" rel="tag">#String</a>
+          
+            <a href="/tags/Binary/" rel="tag">#Binary</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/28/webview-pause-audio/" rel="next" title="Android webview 之onPause暂停audio播放">
+                <i class="fa fa-chevron-left"></i> Android webview 之onPause暂停audio播放
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/03/common-lang3-package/" rel="prev" title="common-lang3 简摘">
+                common-lang3 简摘 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/06/04/CodeFights-Challenges-Cipher-Zeroes/"
+           data-title="CodeFights Challenges Cipher_Zeroes" data-url="http://blog.aha-nstd.com/2016/06/04/CodeFights-Challenges-Cipher-Zeroes/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar-small.png"
+               alt="Nstd" />
+          <p class="site-author-name" itemprop="name">Nstd</p>
+          <p class="site-description motion-element" itemprop="description">码农学画中</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Nstd" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title">友链</div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://xtutu.me" target="_blank">土豪</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.mjshen.com" target="_blank">二敏</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://cashow.github.io/index.html" target="_blank">cashow</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">- 写在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题目-Cipher-Zeroes"><span class="nav-number">2.</span> <span class="nav-text">- 题目 Cipher_Zeroes</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题意"><span class="nav-number">2.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#样例"><span class="nav-number">2.2.</span> <span class="nav-text">样例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析"><span class="nav-number">3.</span> <span class="nav-text">- 分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#我的思路"><span class="nav-number">3.1.</span> <span class="nav-text">我的思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#别人的思路"><span class="nav-number">3.2.</span> <span class="nav-text">别人的思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写在最后"><span class="nav-number">4.</span> <span class="nav-text">-写在最后</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nstd</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+  &nbsp; | &nbsp;
+  <span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+  </span>
+  <span id="busuanzi_container_site_uv">
+    , 访客数<span id="busuanzi_value_site_uv"></span>人次 (Since 2015/01/30)
+  </span>
+</div>
+<div>
+
+</div>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<!-- <script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script> -->
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"nstd"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+
+  
+    <script type="text/javascript" src="http://cdn.staticfile.org/mathjax/2.4.0/MathJax.js"></script>
+    <script type="text/javascript" src="http://cdn.staticfile.org/mathjax/2.4.0/config/TeX-AMS-MML_HTMLorMML.js"></script>
+  
+
+
+  
+
+
+  
+            
+<!-- <script>
+$(function(){
+  $("#posts img").lazyload({
+    placeholder: "http://7xs1tn.com1.z0.glb.clouddn.com/blog-loading.png",
+    effect: "fadeIn",
+    threshold: 200
+  });
+});
+</script> -->
+
+<script type="text/javascript">
+  var we = ["梦", "奶妈", "涛", "二敏", "嘻嘻", "钱哥", "叉叉", "胖虎", "小骚", "逗翔" , "漆雕", "玉雕", "涛雕", "果粒橙", "美君", "Young Phone", "白皙", "SEVEN", "公公", "PBJ"];
+  $("#u2014_u2014__u54C6_u5566_B7A_B7_u5927_u96C4").text("—— 哆啦·A·" + we[Math.floor(Math.random() * we.length)]);
+</script>
+
+</body>
+</html>
