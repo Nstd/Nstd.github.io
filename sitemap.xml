@@ -2,16 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://blog.aha-nstd.com/2017/03/03/common-lang3-package/</loc>
+    <loc>http://blog.aha-nstd.com/2017/03/08/set-up-a-local-jfrog-artifactory/</loc>
     
-    <lastmod>2017-03-06T02:31:01.000Z</lastmod>
+    <lastmod>2017-03-08T08:00:23.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.aha-nstd.com/2016/05/28/webview-pause-audio/</loc>
+    <loc>http://blog.aha-nstd.com/2017/03/03/common-lang3-package/</loc>
     
-    <lastmod>2017-03-03T09:39:34.000Z</lastmod>
+    <lastmod>2017-03-06T02:31:01.000Z</lastmod>
     
   </url>
   
@@ -23,9 +23,9 @@
   </url>
   
   <url>
-    <loc>http://blog.aha-nstd.com/2016/03/15/Stetho/</loc>
+    <loc>http://blog.aha-nstd.com/2016/05/28/webview-pause-audio/</loc>
     
-    <lastmod>2017-03-03T09:22:42.000Z</lastmod>
+    <lastmod>2017-03-03T09:39:34.000Z</lastmod>
     
   </url>
   
@@ -37,7 +37,7 @@
   </url>
   
   <url>
-    <loc>http://blog.aha-nstd.com/drawing/index.html</loc>
+    <loc>http://blog.aha-nstd.com/2016/03/15/Stetho/</loc>
     
     <lastmod>2017-03-03T09:22:42.000Z</lastmod>
     
@@ -45,6 +45,13 @@
   
   <url>
     <loc>http://blog.aha-nstd.com/2016/02/14/about-learning/</loc>
+    
+    <lastmod>2017-03-03T09:22:42.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.aha-nstd.com/drawing/index.html</loc>
     
     <lastmod>2017-03-03T09:22:42.000Z</lastmod>
     

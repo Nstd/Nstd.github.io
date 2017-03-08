@@ -4,6 +4,21 @@
 
     
   <url>
+    <loc>http://blog.aha-nstd.com/2017/03/08/set-up-a-local-jfrog-artifactory/</loc>
+    <lastmod>2017-03-08T08:00:23.000Z</lastmod>
+    <data>
+        <display>
+        <title>搭建一个本地jFrog Artifactory并上传库文件</title>
+        <pubTime>2017-03-08T02:38:12.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://blog.aha-nstd.com/2017/03/03/common-lang3-package/</loc>
     <lastmod>2017-03-06T02:31:01.000Z</lastmod>
     <data>
@@ -19,30 +34,6 @@
            
              
               <breadCrumb title="java" url="http://blog.aha-nstd.com/categories/java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://blog.aha-nstd.com/2016/05/28/webview-pause-audio/</loc>
-    <lastmod>2017-03-03T09:39:34.000Z</lastmod>
-    <data>
-        <display>
-        <title>Android webview 之onPause暂停audio播放</title>
-        <pubTime>2016-05-28T02:44:31.000Z</pubTime>
-        
-        <tag>android</tag>
-         
-        <tag>webview</tag>
-         
-        <tag>audio</tag>
-         
-         
-           
-             
-              <breadCrumb title="android" url="http://blog.aha-nstd.com/categories/android/"/>
           
         </display>
     </data>
@@ -74,18 +65,18 @@
 
     
   <url>
-    <loc>http://blog.aha-nstd.com/2016/03/15/Stetho/</loc>
-    <lastmod>2017-03-03T09:22:42.000Z</lastmod>
+    <loc>http://blog.aha-nstd.com/2016/05/28/webview-pause-audio/</loc>
+    <lastmod>2017-03-03T09:39:34.000Z</lastmod>
     <data>
         <display>
-        <title>Stetho</title>
-        <pubTime>2016-03-15T13:27:57.000Z</pubTime>
+        <title>Android webview 之onPause暂停audio播放</title>
+        <pubTime>2016-05-28T02:44:31.000Z</pubTime>
         
         <tag>android</tag>
          
-        <tag>stetho</tag>
+        <tag>webview</tag>
          
-        <tag>配置</tag>
+        <tag>audio</tag>
          
          
            
@@ -117,6 +108,29 @@
     </url>
 
     
+  <url>
+    <loc>http://blog.aha-nstd.com/2016/03/15/Stetho/</loc>
+    <lastmod>2017-03-03T09:22:42.000Z</lastmod>
+    <data>
+        <display>
+        <title>Stetho</title>
+        <pubTime>2016-03-15T13:27:57.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>stetho</tag>
+         
+        <tag>配置</tag>
+         
+         
+           
+             
+              <breadCrumb title="android" url="http://blog.aha-nstd.com/categories/android/"/>
+          
+        </display>
+    </data>
+    </url>
+
     
   <url>
     <loc>http://blog.aha-nstd.com/2016/02/14/about-learning/</loc>
@@ -139,6 +153,7 @@
     </data>
     </url>
 
+    
     
   <url>
     <loc>http://blog.aha-nstd.com/2016/01/30/CSS-layout-postion-float-z-index/</loc>

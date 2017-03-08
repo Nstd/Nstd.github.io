@@ -268,6 +268,115 @@
             
               
                 
+                <a class="post-title-link" href="/2017/03/08/set-up-a-local-jfrog-artifactory/" itemprop="url">
+                  搭建一个本地jFrog Artifactory并上传库文件
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-03-08T10:38:12+08:00" content="2017-03-08">
+              2017-03-08
+            </time>
+          </span>
+
+          
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/03/08/set-up-a-local-jfrog-artifactory/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/08/set-up-a-local-jfrog-artifactory/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="前情提要"><a href="#前情提要" class="headerlink" title="前情提要"></a>前情提要</h1><p>前段时间，公司想搞hybrid开发，老司机觉得web里的url跳转挺方便的，稍稍调研了下，就自己撸了一个AndroidRouter库。<br>差不多市面上该有的功能都有：</p>
+<ul>
+<li>根据URL跳转到Activity</li>
+<li>通过Helper跳转到Activity</li>
+<li>同一个Activity可以映射多个URL</li>
+<li>跳转Activity的时候可以通过URL参数将变量的值注入到Activity中（支持基本类型和实现序列化接口的类）</li>
+<li>通过H5打开Native页面</li>
+<li>统一解决savedInstanceState的注入与读取</li>
+</ul>
+<p>用着也还挺舒服的，他就想推广到其他项目里，但是每个工程重新拷贝一份Library代码，对代码管理和版本管理什么的都不太方便，于是就有了今天这出：<br>搭建一个本地的maven仓库，用gradle的compile进行引用，再方便不过了。<br>在网上看的时候，都说jFrog Artifactory比较好用，就随大流啦。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/03/08/set-up-a-local-jfrog-artifactory/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/03/03/common-lang3-package/" itemprop="url">
                   common-lang3.4 简摘
                 </a>
@@ -338,7 +447,7 @@
 
       
         
-          <h2 id="ArraysUtils"><a href="#ArraysUtils" class="headerlink" title="ArraysUtils:"></a>ArraysUtils:</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这个类的很多方法都有做数组为空的判断</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//数组转字符串，便于打印日志</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">toString</span><span class="params">(Object array)</span></span>;</span><br><span class="line"><span class="comment">//数组转Map，Entry数组或者n行2列的数组才行</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Map&lt;Object, Object&gt; <span class="title">toMap</span><span class="params">(Object[] array)</span></span>;</span><br><span class="line"><span class="comment">//如果数组为null，返回一个空数组，否则返回本身</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> ..[] nullToEmpty(..[] array);</span><br><span class="line"><span class="comment">//取数组的一个前闭后开的区间</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> ..[] subarray(..[] array, <span class="keyword">int</span> startIndexInclusive, <span class="keyword">int</span> endIndexExclusive);</span><br><span class="line"><span class="comment">//数组是否等长，一个为null，一个为空也算等长</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isSameLength</span><span class="params">(..[] array1, ..[] array2)</span></span>;</span><br><span class="line"><span class="comment">//包装类型和原始类型互换</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] toPrimitive(Integer[] array);</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] toPrimitive(Integer[] array, <span class="keyword">int</span> valueForNull);</span><br><span class="line"><span class="comment">//原始类型和包装类型互换</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Integer[] toObject(in[] array);</span><br><span class="line"><span class="comment">//返回array1和array2合并后的结果，并不改变原始数组</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> T[] addAll(T[] array1, T.. array2);</span><br></pre></td></tr></table></figure>
+          <h2 id="ArraysUtils"><a href="#ArraysUtils" class="headerlink" title="ArraysUtils:"></a>ArraysUtils:</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//这个类的很多方法都有做数组为空的判断</span></div><div class="line"></div><div class="line"><span class="comment">//数组转字符串，便于打印日志</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">toString</span><span class="params">(Object array)</span></span>;</div><div class="line"><span class="comment">//数组转Map，Entry数组或者n行2列的数组才行</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Map&lt;Object, Object&gt; <span class="title">toMap</span><span class="params">(Object[] array)</span></span>;</div><div class="line"><span class="comment">//如果数组为null，返回一个空数组，否则返回本身</span></div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> ..[] nullToEmpty(..[] array);</div><div class="line"><span class="comment">//取数组的一个前闭后开的区间</span></div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> ..[] subarray(..[] array, <span class="keyword">int</span> startIndexInclusive, <span class="keyword">int</span> endIndexExclusive);</div><div class="line"><span class="comment">//数组是否等长，一个为null，一个为空也算等长</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isSameLength</span><span class="params">(..[] array1, ..[] array2)</span></span>;</div><div class="line"><span class="comment">//包装类型和原始类型互换</span></div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] toPrimitive(Integer[] array);</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] toPrimitive(Integer[] array, <span class="keyword">int</span> valueForNull);</div><div class="line"><span class="comment">//原始类型和包装类型互换</span></div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> Integer[] toObject(in[] array);</div><div class="line"><span class="comment">//返回array1和array2合并后的结果，并不改变原始数组</span></div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> T[] addAll(T[] array1, T.. array2);</div></pre></td></tr></table></figure>
 <ul>
 <li>array强转成object，然后通过getClass().getComponentType()可以获取到数组的实际类型，可以由此做些统一的逻辑处理</li>
 </ul>
@@ -473,7 +582,7 @@
 <li>其他数字没有可见的0</li>
 </ul>
 <p>给定一串数字N，假设M是N中可见0的个数，如果M是大于0的偶数，返回M-1的二进制形式；如果M是奇数，返回M+1的二进制形式；否则返回0。</p>
-<p>补全如下函数（java 版）：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Cipher_Zeroes</span><span class="params">(String N)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>补全如下函数（java 版）：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">Cipher_Zeroes</span><span class="params">(String N)</span> </span>&#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h3 id="样例"><a href="#样例" class="headerlink" title="样例"></a>样例</h3><blockquote>
 <p>N = “565”<br>Cipher_Zeroes(N) = 10</p>
 <p>解释：<br>565 中只有6有一个可见0，即：M<sub>1</sub> = 1<br>M1是奇数，所以结果要加1，M<sub>2</sub> = 2<br>最终结果为：2<sub>10</sub> = 10<sub>2</sub></p>
@@ -718,9 +827,9 @@
 
       
         
-          <h2 id="一、起因"><a href="#一、起因" class="headerlink" title="一、起因"></a>一、起因</h2><p>公司的服务端维护一份错误码文件：errorCode.json，同时客户端也需要根据这样一份错误码对用户进行提示，错误码Sample如下：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="attr">"200"</span>: &#123;</span><br><span class="line">		<span class="attr">"0"</span>: &#123;<span class="attr">"msg"</span>: <span class="string">"成功"</span>&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="attr">"300"</span>: &#123;</span><br><span class="line">		<span class="attr">"100"</span>: &#123;<span class="attr">"msg"</span>: <span class="string">"错误1"</span>&#125;,</span><br><span class="line">		<span class="attr">"101"</span>: &#123;<span class="attr">"msg"</span>: <span class="string">"错误2"</span>&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+          <h2 id="一、起因"><a href="#一、起因" class="headerlink" title="一、起因"></a>一、起因</h2><p>公司的服务端维护一份错误码文件：errorCode.json，同时客户端也需要根据这样一份错误码对用户进行提示，错误码Sample如下：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	<span class="attr">"200"</span>: &#123;</div><div class="line">		<span class="attr">"0"</span>: &#123;<span class="attr">"msg"</span>: <span class="string">"成功"</span>&#125;</div><div class="line">	&#125;,</div><div class="line">	<span class="attr">"300"</span>: &#123;</div><div class="line">		<span class="attr">"100"</span>: &#123;<span class="attr">"msg"</span>: <span class="string">"错误1"</span>&#125;,</div><div class="line">		<span class="attr">"101"</span>: &#123;<span class="attr">"msg"</span>: <span class="string">"错误2"</span>&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>平时都是服务器的同学在群里说 <strong>“加了xxx协议，更新了错误码 -。-”</strong> 客户端的同学才会去errorCode.json所在的项目（项目计划）更新项目，然后复制出来放到自己的应用项目中。</p>
-<p>这么操作，一来可能会让错误码更新不及时；二来这份文件返回的msg对用户并不友好，有时候需要我们手动设置对应的错误提示，代码中设置并不是一个好的选择，所以我们打算改造这份错误码，添加一些自定义的消息，如果存在自定义消息则使用自定义消息（这些不在本篇文章的讨论范围），改造后的json如下：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="attr">"200"</span>: &#123;</span><br><span class="line">		<span class="attr">"0"</span>: &#123;<span class="attr">"msg"</span>: <span class="string">"成功"</span>&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="attr">"300"</span>: &#123;</span><br><span class="line">		<span class="attr">"100"</span>: &#123;</span><br><span class="line">			<span class="attr">"msg"</span>:  <span class="string">"错误1"</span>,</span><br><span class="line">			<span class="attr">"cmsg"</span>: <span class="string">"这是给用户看的消息"</span></span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="attr">"101"</span>: &#123;<span class="attr">"msg"</span>: <span class="string">"错误2"</span>&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这么操作，一来可能会让错误码更新不及时；二来这份文件返回的msg对用户并不友好，有时候需要我们手动设置对应的错误提示，代码中设置并不是一个好的选择，所以我们打算改造这份错误码，添加一些自定义的消息，如果存在自定义消息则使用自定义消息（这些不在本篇文章的讨论范围），改造后的json如下：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	<span class="attr">"200"</span>: &#123;</div><div class="line">		<span class="attr">"0"</span>: &#123;<span class="attr">"msg"</span>: <span class="string">"成功"</span>&#125;</div><div class="line">	&#125;,</div><div class="line">	<span class="attr">"300"</span>: &#123;</div><div class="line">		<span class="attr">"100"</span>: &#123;</div><div class="line">			<span class="attr">"msg"</span>:  <span class="string">"错误1"</span>,</div><div class="line">			<span class="attr">"cmsg"</span>: <span class="string">"这是给用户看的消息"</span></div><div class="line">		&#125;,</div><div class="line">		<span class="attr">"101"</span>: &#123;<span class="attr">"msg"</span>: <span class="string">"错误2"</span>&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>然后就出现了这么一个需求：</p>
 <blockquote>
 <p><strong>自动更新我们项目中的errorCode.json文件，同时要把我们的自定义消息合并进去。</strong></p>
@@ -732,133 +841,6 @@
 <li>push to git project
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/03/23/integrate-git-and-jenkins-auto-build/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/03/15/Stetho/" itemprop="url">
-                  Stetho
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-15T21:27:57+08:00" content="2016-03-15">
-              2016-03-15
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/android/" itemprop="url" rel="index">
-                    <span itemprop="name">android</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/03/15/Stetho/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/15/Stetho/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="什么是Stetho"><a href="#什么是Stetho" class="headerlink" title="什么是Stetho"></a>什么是Stetho</h2><h3 id="Stetho是Facebook出的一款Android调试工具"><a href="#Stetho是Facebook出的一款Android调试工具" class="headerlink" title="Stetho是Facebook出的一款Android调试工具"></a>Stetho是Facebook出的一款Android调试工具</h3><p>我们可以用它在Chrome DevTools下查看应用的布局、网络请求、Sqlite、SharedPreference并能通过js来调试代码（使用js进行调试的时候FB只做了初步封装，使用起来会比较麻烦，需要自己进一步封装）</p>
-<h3 id="来点截图（取自官网）"><a href="#来点截图（取自官网）" class="headerlink" title="来点截图（取自官网）"></a>来点截图（取自<a href="http://facebook.github.io/stetho/">官网</a>）</h3><h4 id="Chrome-DevTools"><a href="#Chrome-DevTools" class="headerlink" title="Chrome DevTools"></a>Chrome DevTools</h4><p><img src="http://facebook.github.io/stetho/static/images/inspector-discovery.png" alt="Chrome DevTools"></p>
-<h4 id="查看网络请求"><a href="#查看网络请求" class="headerlink" title="查看网络请求"></a>查看网络请求</h4><p><img src="http://facebook.github.io/stetho/static/images/inspector-network.png" alt="Network Inspection"></p>
-<h4 id="数据库（可读写）"><a href="#数据库（可读写）" class="headerlink" title="数据库（可读写）"></a>数据库（可读写）</h4><p><img src="http://facebook.github.io/stetho/static/images/inspector-sqlite.png" alt="Database Inspection"></p>
-<h4 id="查看布局（双向查看）"><a href="#查看布局（双向查看）" class="headerlink" title="查看布局（双向查看）"></a>查看布局（双向查看）</h4><ol>
-<li>用鼠标放在Element面板中的xml节点上，会在应用中高亮对应的布局</li>
-<li>点击Element左边的放大镜，然后点击应用中的布局，会自动跳转到Element面板中的xml节点<br><img src="http://facebook.github.io/stetho/static/images/inspector-elements.png" alt="View Hierarchy"></li>
-</ol>
-<h4 id="Javascript-Console"><a href="#Javascript-Console" class="headerlink" title="Javascript Console"></a>Javascript Console</h4><p><img src="http://facebook.github.io/stetho/static/images/inspector-js.png" alt="Javascript Console"><br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/03/15/Stetho/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -929,7 +911,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-count">9</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
