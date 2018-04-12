@@ -268,6 +268,146 @@
             
               
                 
+                <a class="post-title-link" href="/2018/04/12/analysis-ios-crash/" itemprop="url">
+                  发送异常堆栈到企业微信
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-04-12T11:54:29+08:00" content="2018-04-12">
+              2018-04-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ios/" itemprop="url" rel="index">
+                    <span itemprop="name">ios</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ios/shell/" itemprop="url" rel="index">
+                    <span itemprop="name">shell</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/04/12/analysis-ios-crash/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/04/12/analysis-ios-crash/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="What-amp-Why"><a href="#What-amp-Why" class="headerlink" title="What &amp; Why"></a>What &amp; Why</h2><p>最近项目收尾有空闲时间，于是想完善一下工具链。接入了DebugDrawer，加了不少小功能功能，还蛮欣喜的。<br>后来想想流程上的一些细节，想到了测试在反馈崩溃bug的时候，我们经常要拿他们的测试机过来，连上手机以后，根据日志里的崩溃信息来定位问题。<br>这个步骤有点繁琐，于是决定写个小工具，debug版本测试的时候，如果遇到了崩溃，直接把异常堆栈发到我们的聊天软件（企业微信）可好？<br>看了下企业微信有提供<a href="https://work.weixin.qq.com/api/doc#10167">发送消息的api</a>，只要把异常信息通过内网服务器转发到企业微信就好了。</p>
+<h3 id="大致流程"><a href="#大致流程" class="headerlink" title="大致流程"></a>大致流程</h3><ul>
+<li>app崩溃</li>
+<li>捕获异常</li>
+<li>重启应用</li>
+<li>(弹窗提示是否发送崩溃堆栈到服务器)发送异常堆栈、账号、等信息到服务器</li>
+<li>服务器转发异常到企业微信</li>
+</ul>
+<p><a href="#server_code">#服务器端转发代码见附录</a></p>
+<h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><p>android这边，debug代码默认是不混淆的，所以从异常堆栈可以直接看出出错的代码位置，但是和ios那边沟通了一下，发现他们的异常堆栈需要用符号表解析一下才可用。<br>他们也有个类似mapping的文件叫dSYM（dSYM其实是个目录，实际的mapping文件为：dSYM/Contents/Resources/DWARF/${appName})，需要用xcrun atos把异常堆栈解析成可读的代码。<br>因为我们的编译机就是mac系统，所以自带xcrun，写个脚本转一下就好了。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2018/04/12/analysis-ios-crash/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/03/08/set-up-a-local-jfrog-artifactory/" itemprop="url">
                   搭建一个本地jFrog Artifactory并上传库文件
                 </a>
@@ -755,136 +895,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/03/23/integrate-git-and-jenkins-auto-build/" itemprop="url">
-                  Git+Jenkins之自动构建
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-23T12:01:23+08:00" content="2016-03-23">
-              2016-03-23
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/配置/" itemprop="url" rel="index">
-                    <span itemprop="name">配置</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/03/23/integrate-git-and-jenkins-auto-build/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/23/integrate-git-and-jenkins-auto-build/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="一、起因"><a href="#一、起因" class="headerlink" title="一、起因"></a>一、起因</h2><p>公司的服务端维护一份错误码文件：errorCode.json，同时客户端也需要根据这样一份错误码对用户进行提示，错误码Sample如下：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	<span class="attr">"200"</span>: &#123;</div><div class="line">		<span class="attr">"0"</span>: &#123;<span class="attr">"msg"</span>: <span class="string">"成功"</span>&#125;</div><div class="line">	&#125;,</div><div class="line">	<span class="attr">"300"</span>: &#123;</div><div class="line">		<span class="attr">"100"</span>: &#123;<span class="attr">"msg"</span>: <span class="string">"错误1"</span>&#125;,</div><div class="line">		<span class="attr">"101"</span>: &#123;<span class="attr">"msg"</span>: <span class="string">"错误2"</span>&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>平时都是服务器的同学在群里说 <strong>“加了xxx协议，更新了错误码 -。-”</strong> 客户端的同学才会去errorCode.json所在的项目（项目计划）更新项目，然后复制出来放到自己的应用项目中。</p>
-<p>这么操作，一来可能会让错误码更新不及时；二来这份文件返回的msg对用户并不友好，有时候需要我们手动设置对应的错误提示，代码中设置并不是一个好的选择，所以我们打算改造这份错误码，添加一些自定义的消息，如果存在自定义消息则使用自定义消息（这些不在本篇文章的讨论范围），改造后的json如下：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	<span class="attr">"200"</span>: &#123;</div><div class="line">		<span class="attr">"0"</span>: &#123;<span class="attr">"msg"</span>: <span class="string">"成功"</span>&#125;</div><div class="line">	&#125;,</div><div class="line">	<span class="attr">"300"</span>: &#123;</div><div class="line">		<span class="attr">"100"</span>: &#123;</div><div class="line">			<span class="attr">"msg"</span>:  <span class="string">"错误1"</span>,</div><div class="line">			<span class="attr">"cmsg"</span>: <span class="string">"这是给用户看的消息"</span></div><div class="line">		&#125;,</div><div class="line">		<span class="attr">"101"</span>: &#123;<span class="attr">"msg"</span>: <span class="string">"错误2"</span>&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>然后就出现了这么一个需求：</p>
-<blockquote>
-<p><strong>自动更新我们项目中的errorCode.json文件，同时要把我们的自定义消息合并进去。</strong></p>
-</blockquote>
-<p>后来想想正好用git + jenkins hooks的方式：当有更新push到GitLab（我们内部使用的git管理平台）的时候，调用jenkins的project hook去自动执行相应的job,这个job是个shell脚本，有三步操作：</p>
-<ol>
-<li>update git project</li>
-<li>merge errorCode.json(此处是使用java做的，怎么方便怎么弄)</li>
-<li>push to git project
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/03/23/integrate-git-and-jenkins-auto-build/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -930,7 +940,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -938,7 +948,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -947,7 +957,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -1020,7 +1030,7 @@
         <div class="copyright" >
   
   &copy;  2015 - 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

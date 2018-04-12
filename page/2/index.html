@@ -268,6 +268,136 @@
             
               
                 
+                <a class="post-title-link" href="/2016/03/23/integrate-git-and-jenkins-auto-build/" itemprop="url">
+                  Git+Jenkins之自动构建
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-03-23T12:01:23+08:00" content="2016-03-23">
+              2016-03-23
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/配置/" itemprop="url" rel="index">
+                    <span itemprop="name">配置</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/03/23/integrate-git-and-jenkins-auto-build/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/23/integrate-git-and-jenkins-auto-build/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="一、起因"><a href="#一、起因" class="headerlink" title="一、起因"></a>一、起因</h2><p>公司的服务端维护一份错误码文件：errorCode.json，同时客户端也需要根据这样一份错误码对用户进行提示，错误码Sample如下：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	<span class="attr">"200"</span>: &#123;</div><div class="line">		<span class="attr">"0"</span>: &#123;<span class="attr">"msg"</span>: <span class="string">"成功"</span>&#125;</div><div class="line">	&#125;,</div><div class="line">	<span class="attr">"300"</span>: &#123;</div><div class="line">		<span class="attr">"100"</span>: &#123;<span class="attr">"msg"</span>: <span class="string">"错误1"</span>&#125;,</div><div class="line">		<span class="attr">"101"</span>: &#123;<span class="attr">"msg"</span>: <span class="string">"错误2"</span>&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>平时都是服务器的同学在群里说 <strong>“加了xxx协议，更新了错误码 -。-”</strong> 客户端的同学才会去errorCode.json所在的项目（项目计划）更新项目，然后复制出来放到自己的应用项目中。</p>
+<p>这么操作，一来可能会让错误码更新不及时；二来这份文件返回的msg对用户并不友好，有时候需要我们手动设置对应的错误提示，代码中设置并不是一个好的选择，所以我们打算改造这份错误码，添加一些自定义的消息，如果存在自定义消息则使用自定义消息（这些不在本篇文章的讨论范围），改造后的json如下：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	<span class="attr">"200"</span>: &#123;</div><div class="line">		<span class="attr">"0"</span>: &#123;<span class="attr">"msg"</span>: <span class="string">"成功"</span>&#125;</div><div class="line">	&#125;,</div><div class="line">	<span class="attr">"300"</span>: &#123;</div><div class="line">		<span class="attr">"100"</span>: &#123;</div><div class="line">			<span class="attr">"msg"</span>:  <span class="string">"错误1"</span>,</div><div class="line">			<span class="attr">"cmsg"</span>: <span class="string">"这是给用户看的消息"</span></div><div class="line">		&#125;,</div><div class="line">		<span class="attr">"101"</span>: &#123;<span class="attr">"msg"</span>: <span class="string">"错误2"</span>&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>然后就出现了这么一个需求：</p>
+<blockquote>
+<p><strong>自动更新我们项目中的errorCode.json文件，同时要把我们的自定义消息合并进去。</strong></p>
+</blockquote>
+<p>后来想想正好用git + jenkins hooks的方式：当有更新push到GitLab（我们内部使用的git管理平台）的时候，调用jenkins的project hook去自动执行相应的job,这个job是个shell脚本，有三步操作：</p>
+<ol>
+<li>update git project</li>
+<li>merge errorCode.json(此处是使用java做的，怎么方便怎么弄)</li>
+<li>push to git project
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/03/23/integrate-git-and-jenkins-auto-build/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/03/15/Stetho/" itemprop="url">
                   Stetho
                 </a>
@@ -777,7 +907,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -785,7 +915,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -794,7 +924,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -867,7 +997,7 @@
         <div class="copyright" >
   
   &copy;  2015 - 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

@@ -1,0 +1,920 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="Say8K4BYW_qZ6LC1iUbskQGzA8_0sVuBBYkvtNykLno" />
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="xcrun,atos,ios,crash,shell," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Nstd" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="What &amp;amp; Why最近项目收尾有空闲时间，于是想完善一下工具链。接入了DebugDrawer，加了不少小功能功能，还蛮欣喜的。后来想想流程上的一些细节，想到了测试在反馈崩溃bug的时候，我们经常要拿他们的测试机过来，连上手机以后，根据日志里的崩溃信息来定位问题。这个步骤有点繁琐，于是决定写个小工具，debug版本测试的时候，如果遇到了崩溃，直接把异常堆栈发到我们的聊天软件（企业微信）可好">
+<meta property="og:type" content="article">
+<meta property="og:title" content="发送异常堆栈到企业微信">
+<meta property="og:url" content="http://blog.aha-nstd.com/2018/04/12/analysis-ios-crash/index.html">
+<meta property="og:site_name" content="Nstd">
+<meta property="og:description" content="What &amp;amp; Why最近项目收尾有空闲时间，于是想完善一下工具链。接入了DebugDrawer，加了不少小功能功能，还蛮欣喜的。后来想想流程上的一些细节，想到了测试在反馈崩溃bug的时候，我们经常要拿他们的测试机过来，连上手机以后，根据日志里的崩溃信息来定位问题。这个步骤有点繁琐，于是决定写个小工具，debug版本测试的时候，如果遇到了崩溃，直接把异常堆栈发到我们的聊天软件（企业微信）可好">
+<meta property="og:updated_time" content="2018-04-12T06:54:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="发送异常堆栈到企业微信">
+<meta name="twitter:description" content="What &amp;amp; Why最近项目收尾有空闲时间，于是想完善一下工具链。接入了DebugDrawer，加了不少小功能功能，还蛮欣喜的。后来想想流程上的一些细节，想到了测试在反馈崩溃bug的时候，我们经常要拿他们的测试机过来，连上手机以后，根据日志里的崩溃信息来定位问题。这个步骤有点繁琐，于是决定写个小工具，debug版本测试的时候，如果遇到了崩溃，直接把异常堆栈发到我们的聊天软件（企业微信）可好">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <title> 发送异常堆栈到企业微信 | Nstd </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-75334149-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?f453514ee5e5877ea008848d1d892156";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+    <div class="site-meta-headline">
+      <a>
+        <img class="custom-logo-image" src="/images/avatar.png"
+             alt="Nstd"/>
+      </a>
+    </div>
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Nstd</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-drawing">
+          <a href="/drawing" rel="section">
+            
+              <i class="menu-item-icon fa fa-paint-brush fa-fw"></i> <br />
+            
+            闲画
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                发送异常堆栈到企业微信
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-04-12T11:54:29+08:00" content="2018-04-12">
+              2018-04-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ios/" itemprop="url" rel="index">
+                    <span itemprop="name">ios</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ios/shell/" itemprop="url" rel="index">
+                    <span itemprop="name">shell</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            <span id="busuanzi_container_page_pv">
+              &nbsp; | &nbsp; <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>次一面之缘
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/04/12/analysis-ios-crash/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/04/12/analysis-ios-crash/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="What-amp-Why"><a href="#What-amp-Why" class="headerlink" title="What &amp; Why"></a>What &amp; Why</h2><p>最近项目收尾有空闲时间，于是想完善一下工具链。接入了DebugDrawer，加了不少小功能功能，还蛮欣喜的。<br>后来想想流程上的一些细节，想到了测试在反馈崩溃bug的时候，我们经常要拿他们的测试机过来，连上手机以后，根据日志里的崩溃信息来定位问题。<br>这个步骤有点繁琐，于是决定写个小工具，debug版本测试的时候，如果遇到了崩溃，直接把异常堆栈发到我们的聊天软件（企业微信）可好？<br>看了下企业微信有提供<a href="https://work.weixin.qq.com/api/doc#10167" target="_blank" rel="external">发送消息的api</a>，只要把异常信息通过内网服务器转发到企业微信就好了。</p>
+<h3 id="大致流程"><a href="#大致流程" class="headerlink" title="大致流程"></a>大致流程</h3><ul>
+<li>app崩溃</li>
+<li>捕获异常</li>
+<li>重启应用</li>
+<li>(弹窗提示是否发送崩溃堆栈到服务器)发送异常堆栈、账号、等信息到服务器</li>
+<li>服务器转发异常到企业微信</li>
+</ul>
+<p><a href="#server_code">#服务器端转发代码见附录</a></p>
+<h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><p>android这边，debug代码默认是不混淆的，所以从异常堆栈可以直接看出出错的代码位置，但是和ios那边沟通了一下，发现他们的异常堆栈需要用符号表解析一下才可用。<br>他们也有个类似mapping的文件叫dSYM（dSYM其实是个目录，实际的mapping文件为：dSYM/Contents/Resources/DWARF/${appName})，需要用xcrun atos把异常堆栈解析成可读的代码。<br>因为我们的编译机就是mac系统，所以自带xcrun，写个脚本转一下就好了。</p>
+<a id="more"></a>
+<h2 id="How"><a href="#How" class="headerlink" title="How"></a>How</h2><p>解析ios异常堆栈的代码</p>
+<h3 id="analysisIOSCrash-sh"><a href="#analysisIOSCrash-sh" class="headerlink" title="analysisIOSCrash.sh"></a>analysisIOSCrash.sh</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash                                                                          </span></div><div class="line"></div><div class="line"><span class="comment">#############################</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># usage: ./analysisIOSCrash.sh crashFile dSYMKey appName arch outputAll [resultFile]</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment">#  crashFile: 保存异常堆栈的文件</span></div><div class="line"><span class="comment">#  dSYMKey: dSYM目录，这里是用build号标识的，dSYM目录存储路径为：当前脚本路径/dSYM/$appName/$dSYMKey</span></div><div class="line"><span class="comment">#  appName: app bundle名</span></div><div class="line"><span class="comment">#  arch: 异常发生的机器cpu架构</span></div><div class="line"><span class="comment">#  outputAll：</span></div><div class="line"><span class="comment">#       0: 只输出appName对应的转换后的异常信息</span></div><div class="line"><span class="comment">#       1: 输出转换后的整个异常栈</span></div><div class="line"><span class="comment">#  resultFile: 将结果保存到$resultFile，如果没有这个参数则直接输出到控制台，可选参数</span></div><div class="line"><span class="comment">#############################</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> [ <span class="variable">$#</span> <span class="_">-lt</span> 5 ]; <span class="keyword">then</span></div><div class="line">    <span class="built_in">echo</span> <span class="string">"param num not fit"</span></div><div class="line">    <span class="built_in">exit</span> 1</div><div class="line"><span class="keyword">fi</span></div><div class="line"></div><div class="line">crashFile=<span class="variable">$1</span></div><div class="line">dSYMKey=<span class="variable">$2</span></div><div class="line">dSYM_DIR=`<span class="built_in">pwd</span>`/dSYM</div><div class="line">appName=<span class="variable">$3</span></div><div class="line">dSYMFile=<span class="variable">$dSYM_DIR</span>/<span class="variable">$appName</span>/<span class="variable">$dSYMKey</span></div><div class="line">arch=<span class="variable">$4</span></div><div class="line">outputAll=<span class="variable">$5</span></div><div class="line">resultFile=`<span class="built_in">pwd</span>`/`date +%s`<span class="string">".tmp"</span></div><div class="line">keepResult=0</div><div class="line"></div><div class="line"><span class="keyword">if</span> [ <span class="variable">$#</span> == 6 ]; <span class="keyword">then</span></div><div class="line">    resultFile=<span class="variable">$6</span></div><div class="line">    keepResult=1</div><div class="line"><span class="keyword">fi</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> [ ! <span class="_">-d</span> <span class="string">"<span class="variable">$dSYMFile</span>"</span> ]; <span class="keyword">then</span></div><div class="line">    <span class="built_in">echo</span> <span class="string">"not found dSYMFile: <span class="variable">$dSYMFile</span>"</span></div><div class="line">    <span class="built_in">exit</span> 1</div><div class="line"><span class="keyword">fi</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> [ ! <span class="_">-f</span> <span class="string">"<span class="variable">$crashFile</span>"</span> ]; <span class="keyword">then</span></div><div class="line">    <span class="built_in">echo</span> <span class="string">"not found crashFile: <span class="variable">$crashFile</span>"</span></div><div class="line">    <span class="built_in">exit</span> 1</div><div class="line"><span class="keyword">fi</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> [ <span class="variable">$outputAll</span> == 1 ]; <span class="keyword">then</span></div><div class="line">    awk -v dSYM=<span class="string">"<span class="variable">$dSYMFile</span>"</span> -v appName=<span class="variable">$appName</span> -v arch=<span class="variable">$arch</span> <span class="string">'&#123;if ($0 ~ /'</span><span class="variable">$appName</span><span class="string">'[\t ]*0x[0123456789abcdefABCDEF]+[\t ]+'</span><span class="variable">$appName</span><span class="string">'/) &#123;value=int($3) - int($6); addr="0x"sprintf("%lx", value); dSYM2=dSYM"/Contents/Resources/DWARF/"appName; "xcrun atos -arch "arch" -o \""dSYM2"\" -l "addr" "$3"" | getline result; printf("\t%-4d%-35s %s %s\n", $1, $2, $3, result);&#125; else &#123;print $0;&#125;&#125;'</span> <span class="string">"<span class="variable">$crashFile</span>"</span> &gt; <span class="variable">$resultFile</span> 2&gt;&amp;1</div><div class="line"><span class="keyword">else</span></div><div class="line">    awk -v dSYM=<span class="variable">$dSYMFile</span> -v appName=<span class="variable">$appName</span> -v arch=<span class="variable">$arch</span> <span class="string">'BEGIN&#123;opLine=1;&#125;&#123;if($0 ~ /^\(/)&#123;print "("; opLine=0;&#125; if($0 ~ /^\)/)&#123;opLine=1;&#125; if ($0 ~ /'</span><span class="variable">$appName</span><span class="string">'[\t ]*0x[0123456789abcdefABCDEF]+[\t ]+'</span><span class="variable">$appName</span><span class="string">'/) &#123;value=int($3) - int($6); addr="0x"sprintf("%lx", value); dSYM2=dSYM"/Contents/Resources/DWARF/"appName; "xcrun atos -arch "arch" -o \""dSYM2"\" -l "addr" "$3"" | getline result; printf("\t%-4d%-35s %s %s\n", $1, $2, $3, result);&#125; else &#123;if(opLine == 1) &#123;print $0;&#125;&#125;&#125;'</span> <span class="variable">$crashFile</span> &gt; <span class="variable">$resultFile</span> 2&gt;&amp;1</div><div class="line"><span class="keyword">fi</span></div><div class="line"></div><div class="line">cat <span class="variable">$resultFile</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> [ <span class="variable">$keepResult</span> == 0 ]; <span class="keyword">then</span></div><div class="line">    rm <span class="variable">$resultFile</span></div><div class="line"><span class="keyword">fi</span></div><div class="line"></div><div class="line"><span class="built_in">exit</span> 0</div></pre></td></tr></table></figure>
+<h3 id="服务器端转发代码"><a href="#服务器端转发代码" class="headerlink" title="服务器端转发代码"></a><span id="server_code">服务器端转发代码</span></h3><p>使用的时候需要替换 <code>cropid</code>、<code>cropsecret</code>、<code>agentid</code>这几个参数<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"></div><div class="line"><span class="comment">/****************************</span></div><div class="line"> *</div><div class="line"> * 参数：</div><div class="line"> *  p: ios/android</div><div class="line"> *  app: app名称</div><div class="line"> *  msg: 额外消息</div><div class="line"> *  stack: 异常堆栈</div><div class="line"> *  archive: cpu架构（ios额外参数）</div><div class="line"> *  dSYMId：dSYM文件名，这里用的是build号（ios额外参数）</div><div class="line"> *                                                                                   </div><div class="line"> ****************************/</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getToken</span><span class="params">()</span> </span>&#123;</div><div class="line">    $url = <span class="string">"https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=$&#123;这里填入cropId&#125;&amp;corpsecret=$&#123;这里填入应用的corpsecret&#125;"</span>;</div><div class="line">    $result = json_decode(file_get_contents($url));</div><div class="line"></div><div class="line">    <span class="comment">//TODO 如果高频率请求token，后面可能会收不到消息，这两个参数存数据库</span></div><div class="line">    <span class="comment">//$result-&gt;access_token</span></div><div class="line">    <span class="comment">//$result-&gt;expires_in</span></div><div class="line"></div><div class="line">    <span class="keyword">return</span> $result-&gt;access_token;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">http_post_data</span><span class="params">($url, $data)</span> </span>&#123;</div><div class="line">    $ch = curl_init($url);</div><div class="line">    curl_setopt($ch, CURLOPT_POST, <span class="keyword">true</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);</div><div class="line">    curl_setopt($ch, CURLOPT_HTTPHEADER, <span class="keyword">array</span>(</div><div class="line">        <span class="string">'Content-Type: application/json; charset=utf-8'</span>,</div><div class="line">        <span class="string">'Content-Length: '</span> . strlen($data)</div><div class="line">    ));</div><div class="line"></div><div class="line">    ob_start();</div><div class="line">    $return_content = curl_exec($ch);</div><div class="line">    curl_close($ch);</div><div class="line"></div><div class="line">    <span class="keyword">if</span>(!<span class="keyword">empty</span>($return_content)) &#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            $result = json_decode($return_content);</div><div class="line">            $code = $result-&gt;errcode;</div><div class="line">            <span class="keyword">if</span>($code == <span class="number">0</span>) &#123;</div><div class="line">                <span class="keyword">return</span> <span class="string">'success'</span>;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">return</span> $result-&gt;errmsg;</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">catch</span> (<span class="keyword">Exception</span> $e) &#123;</div><div class="line">            <span class="keyword">return</span> $e-&gt;getMessage();</div><div class="line">        &#125;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">'failed!!'</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">sendMsg</span><span class="params">($totag, $msg)</span> </span>&#123;</div><div class="line">    $url = <span class="string">"https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token="</span> . getToken();</div><div class="line">    $target_msg = <span class="keyword">array</span>(</div><div class="line">        <span class="string">'totag'</span> =&gt; $totag,</div><div class="line">        <span class="string">'agentid'</span> =&gt; <span class="string">'$&#123;这里填入公司的agentId&#125;'</span>,</div><div class="line">        <span class="string">'msgtype'</span> =&gt; <span class="string">'text'</span>,</div><div class="line">        <span class="string">'text'</span> =&gt; <span class="keyword">array</span>(</div><div class="line">            <span class="string">'content'</span> =&gt; $msg</div><div class="line">        )</div><div class="line">    );</div><div class="line">    $encode_msg = json_encode($target_msg);</div><div class="line"></div><div class="line">    <span class="keyword">return</span> http_post_data($url, $encode_msg);</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">//检查参数</span></div><div class="line"><span class="keyword">if</span>(!(array_key_exists(<span class="string">'p'</span>, $_POST)</div><div class="line">    &amp;&amp; array_key_exists(<span class="string">'app'</span>, $_POST)</div><div class="line">    &amp;&amp; array_key_exists(<span class="string">'msg'</span>, $_POST)</div><div class="line">    &amp;&amp; array_key_exists(<span class="string">'stack'</span>, $_POST))) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"need param!"</span>;</div><div class="line">    <span class="keyword">return</span> ;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$platform = $_POST[<span class="string">'p'</span>];</div><div class="line">$app =  $_POST[<span class="string">'app'</span>];</div><div class="line">$msg = $_POST[<span class="string">'msg'</span>];</div><div class="line">$stack = $_POST[<span class="string">'stack'</span>];</div><div class="line">$archive = <span class="string">''</span>;</div><div class="line">$dSYMId = <span class="string">''</span>;</div><div class="line"></div><div class="line"><span class="keyword">if</span>(<span class="keyword">empty</span>($platform) || <span class="keyword">empty</span>($app) || <span class="keyword">empty</span>($msg) || <span class="keyword">empty</span>($stack)) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"empty param!"</span>;</div><div class="line">    <span class="keyword">return</span> ;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span>($platform != <span class="string">'android'</span> &amp;&amp; $platform != <span class="string">'ios'</span>) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"invalidate param app"</span>;</div><div class="line">    <span class="keyword">return</span> ;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span>($platform == <span class="string">'ios'</span>) &#123;</div><div class="line">    <span class="keyword">if</span>(!array_key_exists(<span class="string">'archive'</span>, $_POST) || !array_key_exists(<span class="string">'dSYMId'</span>, $_POST)) &#123;</div><div class="line">        <span class="keyword">echo</span> <span class="string">'need param!'</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    $archive = $_POST[<span class="string">'archive'</span>];</div><div class="line">    $dSYMId = $_POST[<span class="string">'dSYMId'</span>];</div><div class="line"></div><div class="line">    <span class="keyword">if</span>(<span class="keyword">empty</span>($archive) || <span class="keyword">empty</span>($dSYMId)) &#123;</div><div class="line">        <span class="keyword">echo</span> <span class="string">"empty param!"</span>;</div><div class="line">        <span class="keyword">return</span> ;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    $crash_dir = <span class="string">"crash"</span>;</div><div class="line">    <span class="keyword">if</span>(!is_dir($crash_dir)) &#123;</div><div class="line">        mkdir($crash_dir, <span class="number">0777</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="comment">//将错误堆栈写入临时文件</span></div><div class="line">    $crashFileName = $crash_dir . <span class="string">"/"</span>. time() . <span class="string">".txt"</span>;</div><div class="line">    $resultFileName = $crash_dir . <span class="string">"/"</span> . time() . <span class="string">"-result.txt"</span>;</div><div class="line">    $crashFile = fopen($crashFileName, <span class="string">"w"</span>);</div><div class="line">    fwrite($crashFile, $stack);</div><div class="line">    fclose($crashFile);</div><div class="line"></div><div class="line">    $dSYMFile = <span class="string">""</span> . $dSYMId . <span class="string">".dSYM"</span>;</div><div class="line">    $showAll = strlen($msg . $stack) &gt; <span class="number">2000</span> ? <span class="number">0</span> : <span class="number">1</span>;</div><div class="line"></div><div class="line">    $cmd = <span class="string">"./analysisIOSCrash.sh "</span> . $crashFileName . <span class="string">" "</span> . $dSYMFile . <span class="string">" "</span> . $app . <span class="string">" "</span> . $archive . <span class="string">" "</span> . $showAll . <span class="string">" "</span> . $resultFileName;</div><div class="line"></div><div class="line">    exec($cmd, $dSYM_result, $r_code);</div><div class="line"></div><div class="line"></div><div class="line">    <span class="keyword">if</span>($r_code == <span class="number">0</span>) &#123;</div><div class="line">        $dSYM_result = file_get_contents($resultFileName);</div><div class="line">        <span class="keyword">if</span>(!<span class="keyword">empty</span>($dSYM_result)) &#123;</div><div class="line">            $stack = $dSYM_result;</div><div class="line">        &#125;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">echo</span> <span class="string">"error: "</span>;</div><div class="line">        var_dump($dSYM_result);</div><div class="line">        $stack = <span class="string">"\n!!!!!!!!!!!!!!! ERROR:\n  "</span> . $dSYM_result[<span class="number">0</span>] . <span class="string">"\n!!!!!!!!!!!!!!!\n\n"</span> . $stack;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    unlink($crashFileName);</div><div class="line">    unlink($resultFileName);</div><div class="line">&#125;</div><div class="line"></div><div class="line">    $totag = $platform == <span class="string">'android'</span> ? <span class="string">'1'</span> : <span class="string">'2'</span>;</div><div class="line">    $msg = <span class="string">"应用: "</span> . $app . <span class="string">"\n"</span> . $msg . <span class="string">"\n"</span> . $stack;</div><div class="line"></div><div class="line">    <span class="keyword">echo</span> sendMsg($totag, $msg);</div><div class="line"></div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure></p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>程序员需要学会更多偷懒的姿势😁</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/xcrun/" rel="tag">#xcrun</a>
+          
+            <a href="/tags/atos/" rel="tag">#atos</a>
+          
+            <a href="/tags/ios/" rel="tag">#ios</a>
+          
+            <a href="/tags/crash/" rel="tag">#crash</a>
+          
+            <a href="/tags/shell/" rel="tag">#shell</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/08/set-up-a-local-jfrog-artifactory/" rel="next" title="搭建一个本地jFrog Artifactory并上传库文件">
+                <i class="fa fa-chevron-left"></i> 搭建一个本地jFrog Artifactory并上传库文件
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2018/04/12/analysis-ios-crash/"
+           data-title="发送异常堆栈到企业微信" data-url="http://blog.aha-nstd.com/2018/04/12/analysis-ios-crash/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar-small.png"
+               alt="Nstd" />
+          <p class="site-author-name" itemprop="name">Nstd</p>
+          <p class="site-description motion-element" itemprop="description">码农学画中</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Nstd" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title">友链</div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://xtutu.me" target="_blank">土豪</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.mjshen.com" target="_blank">二敏</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://cashow.github.io/index.html" target="_blank">cashow</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#What-amp-Why"><span class="nav-number">1.</span> <span class="nav-text">What & Why</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#大致流程"><span class="nav-number">1.1.</span> <span class="nav-text">大致流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遇到的问题"><span class="nav-number">1.2.</span> <span class="nav-text">遇到的问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#How"><span class="nav-number">2.</span> <span class="nav-text">How</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#analysisIOSCrash-sh"><span class="nav-number">2.1.</span> <span class="nav-text">analysisIOSCrash.sh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器端转发代码"><span class="nav-number">2.2.</span> <span class="nav-text">服务器端转发代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">3.</span> <span class="nav-text">结语</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nstd</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+  &nbsp; | &nbsp;
+  <span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+  </span>
+  <span id="busuanzi_container_site_uv">
+    , 访客数<span id="busuanzi_value_site_uv"></span>人次 (Since 2015/01/30)
+  </span>
+</div>
+<div>
+
+</div>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<!-- <script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script> -->
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"nstd"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+
+  
+    <script type="text/javascript" src="http://cdn.staticfile.org/mathjax/2.4.0/MathJax.js"></script>
+    <script type="text/javascript" src="http://cdn.staticfile.org/mathjax/2.4.0/config/TeX-AMS-MML_HTMLorMML.js"></script>
+  
+
+
+  
+
+
+  
+            
+<!-- <script>
+$(function(){
+  $("#posts img").lazyload({
+    placeholder: "http://7xs1tn.com1.z0.glb.clouddn.com/blog-loading.png",
+    effect: "fadeIn",
+    threshold: 200
+  });
+});
+</script> -->
+
+<script type="text/javascript">
+  var we = ["梦", "奶妈", "涛", "二敏", "嘻嘻", "钱哥", "叉叉", "胖虎", "小骚", "逗翔" , "漆雕", "玉雕", "涛雕", "果粒橙", "美君", "Young Phone", "白皙", "SEVEN", "公公", "PBJ"];
+  $("#u2014_u2014__u54C6_u5566_B7A_B7_u5927_u96C4").text("—— 哆啦·A·" + we[Math.floor(Math.random() * we.length)]);
+</script>
+
+</body>
+</html>
