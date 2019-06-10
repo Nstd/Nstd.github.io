@@ -4,9 +4,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://blog.aha-nstd.com/"/>
+  <link href="http://nstd.github.io/"/>
   <updated>2019-06-10T08:00:25.519Z</updated>
-  <id>http://blog.aha-nstd.com/</id>
+  <id>http://nstd.github.io/</id>
   
   <author>
     <name>Nstd</name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title>Android Studio Module&amp;页面 自定义模板</title>
-    <link href="http://blog.aha-nstd.com/2019/06/10/android-studio-module-page-template/"/>
-    <id>http://blog.aha-nstd.com/2019/06/10/android-studio-module-page-template/</id>
+    <link href="http://nstd.github.io/2019/06/10/android-studio-module-page-template/"/>
+    <id>http://nstd.github.io/2019/06/10/android-studio-module-page-template/</id>
     <published>2019-06-10T03:00:44.000Z</published>
     <updated>2019-06-10T08:00:25.519Z</updated>
     
@@ -110,21 +110,21 @@
     
     </summary>
     
-      <category term="Android Studio" scheme="http://blog.aha-nstd.com/categories/Android-Studio/"/>
+      <category term="Android Studio" scheme="http://nstd.github.io/categories/Android-Studio/"/>
     
-      <category term="Android" scheme="http://blog.aha-nstd.com/categories/Android-Studio/Android/"/>
+      <category term="Android" scheme="http://nstd.github.io/categories/Android-Studio/Android/"/>
     
     
-      <category term="Android Studio" scheme="http://blog.aha-nstd.com/tags/Android-Studio/"/>
+      <category term="Android Studio" scheme="http://nstd.github.io/tags/Android-Studio/"/>
     
-      <category term="自定义模板" scheme="http://blog.aha-nstd.com/tags/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E6%9D%BF/"/>
+      <category term="自定义模板" scheme="http://nstd.github.io/tags/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E6%9D%BF/"/>
     
   </entry>
   
   <entry>
     <title>发送异常堆栈到企业微信</title>
-    <link href="http://blog.aha-nstd.com/2018/04/12/analysis-ios-crash/"/>
-    <id>http://blog.aha-nstd.com/2018/04/12/analysis-ios-crash/</id>
+    <link href="http://nstd.github.io/2018/04/12/analysis-ios-crash/"/>
+    <id>http://nstd.github.io/2018/04/12/analysis-ios-crash/</id>
     <published>2018-04-12T03:54:29.000Z</published>
     <updated>2018-04-12T06:54:58.000Z</updated>
     
@@ -160,27 +160,27 @@
     
     </summary>
     
-      <category term="ios" scheme="http://blog.aha-nstd.com/categories/ios/"/>
+      <category term="ios" scheme="http://nstd.github.io/categories/ios/"/>
     
-      <category term="shell" scheme="http://blog.aha-nstd.com/categories/ios/shell/"/>
+      <category term="shell" scheme="http://nstd.github.io/categories/ios/shell/"/>
     
     
-      <category term="xcrun" scheme="http://blog.aha-nstd.com/tags/xcrun/"/>
+      <category term="xcrun" scheme="http://nstd.github.io/tags/xcrun/"/>
     
-      <category term="atos" scheme="http://blog.aha-nstd.com/tags/atos/"/>
+      <category term="atos" scheme="http://nstd.github.io/tags/atos/"/>
     
-      <category term="ios" scheme="http://blog.aha-nstd.com/tags/ios/"/>
+      <category term="ios" scheme="http://nstd.github.io/tags/ios/"/>
     
-      <category term="crash" scheme="http://blog.aha-nstd.com/tags/crash/"/>
+      <category term="crash" scheme="http://nstd.github.io/tags/crash/"/>
     
-      <category term="shell" scheme="http://blog.aha-nstd.com/tags/shell/"/>
+      <category term="shell" scheme="http://nstd.github.io/tags/shell/"/>
     
   </entry>
   
   <entry>
     <title>搭建一个本地jFrog Artifactory并上传库文件</title>
-    <link href="http://blog.aha-nstd.com/2017/03/08/set-up-a-local-jfrog-artifactory/"/>
-    <id>http://blog.aha-nstd.com/2017/03/08/set-up-a-local-jfrog-artifactory/</id>
+    <link href="http://nstd.github.io/2017/03/08/set-up-a-local-jfrog-artifactory/"/>
+    <id>http://nstd.github.io/2017/03/08/set-up-a-local-jfrog-artifactory/</id>
     <published>2017-03-08T02:38:12.000Z</published>
     <updated>2017-03-08T08:23:26.000Z</updated>
     
@@ -269,23 +269,23 @@
     
     </summary>
     
-      <category term="配置" scheme="http://blog.aha-nstd.com/categories/%E9%85%8D%E7%BD%AE/"/>
+      <category term="配置" scheme="http://nstd.github.io/categories/%E9%85%8D%E7%BD%AE/"/>
     
     
-      <category term="配置" scheme="http://blog.aha-nstd.com/tags/%E9%85%8D%E7%BD%AE/"/>
+      <category term="配置" scheme="http://nstd.github.io/tags/%E9%85%8D%E7%BD%AE/"/>
     
-      <category term="gradle" scheme="http://blog.aha-nstd.com/tags/gradle/"/>
+      <category term="gradle" scheme="http://nstd.github.io/tags/gradle/"/>
     
-      <category term="jFrog" scheme="http://blog.aha-nstd.com/tags/jFrog/"/>
+      <category term="jFrog" scheme="http://nstd.github.io/tags/jFrog/"/>
     
-      <category term="Artifactory" scheme="http://blog.aha-nstd.com/tags/Artifactory/"/>
+      <category term="Artifactory" scheme="http://nstd.github.io/tags/Artifactory/"/>
     
   </entry>
   
   <entry>
     <title>common-lang3.4 简摘</title>
-    <link href="http://blog.aha-nstd.com/2017/03/03/common-lang3-package/"/>
-    <id>http://blog.aha-nstd.com/2017/03/03/common-lang3-package/</id>
+    <link href="http://nstd.github.io/2017/03/03/common-lang3-package/"/>
+    <id>http://nstd.github.io/2017/03/03/common-lang3-package/</id>
     <published>2017-03-03T09:45:35.000Z</published>
     <updated>2017-03-08T08:19:46.000Z</updated>
     
@@ -315,19 +315,19 @@
     
     </summary>
     
-      <category term="java" scheme="http://blog.aha-nstd.com/categories/java/"/>
+      <category term="java" scheme="http://nstd.github.io/categories/java/"/>
     
     
-      <category term="java" scheme="http://blog.aha-nstd.com/tags/java/"/>
+      <category term="java" scheme="http://nstd.github.io/tags/java/"/>
     
-      <category term="common-lang3" scheme="http://blog.aha-nstd.com/tags/common-lang3/"/>
+      <category term="common-lang3" scheme="http://nstd.github.io/tags/common-lang3/"/>
     
   </entry>
   
   <entry>
     <title>CodeFights Challenges Cipher_Zeroes</title>
-    <link href="http://blog.aha-nstd.com/2016/06/04/CodeFights-Challenges-Cipher-Zeroes/"/>
-    <id>http://blog.aha-nstd.com/2016/06/04/CodeFights-Challenges-Cipher-Zeroes/</id>
+    <link href="http://nstd.github.io/2016/06/04/CodeFights-Challenges-Cipher-Zeroes/"/>
+    <id>http://nstd.github.io/2016/06/04/CodeFights-Challenges-Cipher-Zeroes/</id>
     <published>2016-06-04T10:17:51.000Z</published>
     <updated>2017-03-03T09:39:34.000Z</updated>
     
@@ -432,21 +432,21 @@
     
     </summary>
     
-      <category term="CodeFights" scheme="http://blog.aha-nstd.com/categories/CodeFights/"/>
+      <category term="CodeFights" scheme="http://nstd.github.io/categories/CodeFights/"/>
     
     
-      <category term="CodeFights" scheme="http://blog.aha-nstd.com/tags/CodeFights/"/>
+      <category term="CodeFights" scheme="http://nstd.github.io/tags/CodeFights/"/>
     
-      <category term="String" scheme="http://blog.aha-nstd.com/tags/String/"/>
+      <category term="String" scheme="http://nstd.github.io/tags/String/"/>
     
-      <category term="Binary" scheme="http://blog.aha-nstd.com/tags/Binary/"/>
+      <category term="Binary" scheme="http://nstd.github.io/tags/Binary/"/>
     
   </entry>
   
   <entry>
     <title>Android webview 之onPause暂停audio播放</title>
-    <link href="http://blog.aha-nstd.com/2016/05/28/webview-pause-audio/"/>
-    <id>http://blog.aha-nstd.com/2016/05/28/webview-pause-audio/</id>
+    <link href="http://nstd.github.io/2016/05/28/webview-pause-audio/"/>
+    <id>http://nstd.github.io/2016/05/28/webview-pause-audio/</id>
     <published>2016-05-28T02:44:31.000Z</published>
     <updated>2017-03-03T09:39:34.000Z</updated>
     
@@ -475,21 +475,21 @@
     
     </summary>
     
-      <category term="android" scheme="http://blog.aha-nstd.com/categories/android/"/>
+      <category term="android" scheme="http://nstd.github.io/categories/android/"/>
     
     
-      <category term="android" scheme="http://blog.aha-nstd.com/tags/android/"/>
+      <category term="android" scheme="http://nstd.github.io/tags/android/"/>
     
-      <category term="webview" scheme="http://blog.aha-nstd.com/tags/webview/"/>
+      <category term="webview" scheme="http://nstd.github.io/tags/webview/"/>
     
-      <category term="audio" scheme="http://blog.aha-nstd.com/tags/audio/"/>
+      <category term="audio" scheme="http://nstd.github.io/tags/audio/"/>
     
   </entry>
   
   <entry>
     <title>Git+Jenkins之自动构建</title>
-    <link href="http://blog.aha-nstd.com/2016/03/23/integrate-git-and-jenkins-auto-build/"/>
-    <id>http://blog.aha-nstd.com/2016/03/23/integrate-git-and-jenkins-auto-build/</id>
+    <link href="http://nstd.github.io/2016/03/23/integrate-git-and-jenkins-auto-build/"/>
+    <id>http://nstd.github.io/2016/03/23/integrate-git-and-jenkins-auto-build/</id>
     <published>2016-03-23T04:01:23.000Z</published>
     <updated>2016-03-25T11:36:57.000Z</updated>
     
@@ -578,21 +578,21 @@
     
     </summary>
     
-      <category term="配置" scheme="http://blog.aha-nstd.com/categories/%E9%85%8D%E7%BD%AE/"/>
+      <category term="配置" scheme="http://nstd.github.io/categories/%E9%85%8D%E7%BD%AE/"/>
     
     
-      <category term="配置" scheme="http://blog.aha-nstd.com/tags/%E9%85%8D%E7%BD%AE/"/>
+      <category term="配置" scheme="http://nstd.github.io/tags/%E9%85%8D%E7%BD%AE/"/>
     
-      <category term="git" scheme="http://blog.aha-nstd.com/tags/git/"/>
+      <category term="git" scheme="http://nstd.github.io/tags/git/"/>
     
-      <category term="jenkins" scheme="http://blog.aha-nstd.com/tags/jenkins/"/>
+      <category term="jenkins" scheme="http://nstd.github.io/tags/jenkins/"/>
     
   </entry>
   
   <entry>
     <title>Stetho</title>
-    <link href="http://blog.aha-nstd.com/2016/03/15/Stetho/"/>
-    <id>http://blog.aha-nstd.com/2016/03/15/Stetho/</id>
+    <link href="http://nstd.github.io/2016/03/15/Stetho/"/>
+    <id>http://nstd.github.io/2016/03/15/Stetho/</id>
     <published>2016-03-15T13:27:57.000Z</published>
     <updated>2017-03-03T09:22:42.000Z</updated>
     
@@ -668,21 +668,21 @@
     
     </summary>
     
-      <category term="android" scheme="http://blog.aha-nstd.com/categories/android/"/>
+      <category term="android" scheme="http://nstd.github.io/categories/android/"/>
     
     
-      <category term="配置" scheme="http://blog.aha-nstd.com/tags/%E9%85%8D%E7%BD%AE/"/>
+      <category term="配置" scheme="http://nstd.github.io/tags/%E9%85%8D%E7%BD%AE/"/>
     
-      <category term="android" scheme="http://blog.aha-nstd.com/tags/android/"/>
+      <category term="android" scheme="http://nstd.github.io/tags/android/"/>
     
-      <category term="stetho" scheme="http://blog.aha-nstd.com/tags/stetho/"/>
+      <category term="stetho" scheme="http://nstd.github.io/tags/stetho/"/>
     
   </entry>
   
   <entry>
     <title>关于学习</title>
-    <link href="http://blog.aha-nstd.com/2016/02/14/about-learning/"/>
-    <id>http://blog.aha-nstd.com/2016/02/14/about-learning/</id>
+    <link href="http://nstd.github.io/2016/02/14/about-learning/"/>
+    <id>http://nstd.github.io/2016/02/14/about-learning/</id>
     <published>2016-02-14T13:29:53.000Z</published>
     <updated>2017-03-03T09:22:42.000Z</updated>
     
@@ -704,19 +704,19 @@
     
     </summary>
     
-      <category term="随笔" scheme="http://blog.aha-nstd.com/categories/%E9%9A%8F%E7%AC%94/"/>
+      <category term="随笔" scheme="http://nstd.github.io/categories/%E9%9A%8F%E7%AC%94/"/>
     
     
-      <category term="学习" scheme="http://blog.aha-nstd.com/tags/%E5%AD%A6%E4%B9%A0/"/>
+      <category term="学习" scheme="http://nstd.github.io/tags/%E5%AD%A6%E4%B9%A0/"/>
     
-      <category term="随笔" scheme="http://blog.aha-nstd.com/tags/%E9%9A%8F%E7%AC%94/"/>
+      <category term="随笔" scheme="http://nstd.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
     
   </entry>
   
   <entry>
     <title>CSS布局之postion、float、z-index</title>
-    <link href="http://blog.aha-nstd.com/2016/01/30/CSS-layout-postion-float-z-index/"/>
-    <id>http://blog.aha-nstd.com/2016/01/30/CSS-layout-postion-float-z-index/</id>
+    <link href="http://nstd.github.io/2016/01/30/CSS-layout-postion-float-z-index/"/>
+    <id>http://nstd.github.io/2016/01/30/CSS-layout-postion-float-z-index/</id>
     <published>2016-01-30T08:48:50.000Z</published>
     <updated>2017-03-03T09:22:42.000Z</updated>
     
@@ -759,23 +759,23 @@
     
     </summary>
     
-      <category term="web" scheme="http://blog.aha-nstd.com/categories/web/"/>
+      <category term="web" scheme="http://nstd.github.io/categories/web/"/>
     
     
-      <category term="css" scheme="http://blog.aha-nstd.com/tags/css/"/>
+      <category term="css" scheme="http://nstd.github.io/tags/css/"/>
     
-      <category term="position" scheme="http://blog.aha-nstd.com/tags/position/"/>
+      <category term="position" scheme="http://nstd.github.io/tags/position/"/>
     
-      <category term="float" scheme="http://blog.aha-nstd.com/tags/float/"/>
+      <category term="float" scheme="http://nstd.github.io/tags/float/"/>
     
-      <category term="z-index" scheme="http://blog.aha-nstd.com/tags/z-index/"/>
+      <category term="z-index" scheme="http://nstd.github.io/tags/z-index/"/>
     
   </entry>
   
   <entry>
     <title>Hello World</title>
-    <link href="http://blog.aha-nstd.com/2016/01/30/hello-world/"/>
-    <id>http://blog.aha-nstd.com/2016/01/30/hello-world/</id>
+    <link href="http://nstd.github.io/2016/01/30/hello-world/"/>
+    <id>http://nstd.github.io/2016/01/30/hello-world/</id>
     <published>2016-01-30T08:48:00.000Z</published>
     <updated>2017-03-03T09:22:42.000Z</updated>
     
@@ -796,10 +796,10 @@
     
     </summary>
     
-      <category term="test" scheme="http://blog.aha-nstd.com/categories/test/"/>
+      <category term="test" scheme="http://nstd.github.io/categories/test/"/>
     
     
-      <category term="test" scheme="http://blog.aha-nstd.com/tags/test/"/>
+      <category term="test" scheme="http://nstd.github.io/tags/test/"/>
     
   </entry>
   

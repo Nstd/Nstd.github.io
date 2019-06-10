@@ -4,7 +4,7 @@
 
     
   <url>
-    <loc>http://blog.aha-nstd.com/2019/06/10/android-studio-module-page-template/</loc>
+    <loc>http://nstd.github.io/2019/06/10/android-studio-module-page-template/</loc>
     <lastmod>2019-06-10T08:00:25.519Z</lastmod>
     <data>
         <display>
@@ -18,10 +18,10 @@
          
            
              
-              <breadCrumb title="Android Studio" url="http://blog.aha-nstd.com/categories/Android-Studio/"/>
+              <breadCrumb title="Android Studio" url="http://nstd.github.io/categories/Android-Studio/"/>
           
              
-              <breadCrumb title="Android" url="http://blog.aha-nstd.com/categories/Android-Studio/Android/"/>
+              <breadCrumb title="Android" url="http://nstd.github.io/categories/Android-Studio/Android/"/>
           
         </display>
     </data>
@@ -29,7 +29,7 @@
 
     
   <url>
-    <loc>http://blog.aha-nstd.com/2018/04/12/analysis-ios-crash/</loc>
+    <loc>http://nstd.github.io/2018/04/12/analysis-ios-crash/</loc>
     <lastmod>2018-04-12T06:54:58.000Z</lastmod>
     <data>
         <display>
@@ -49,10 +49,10 @@
          
            
              
-              <breadCrumb title="ios" url="http://blog.aha-nstd.com/categories/ios/"/>
+              <breadCrumb title="ios" url="http://nstd.github.io/categories/ios/"/>
           
              
-              <breadCrumb title="shell" url="http://blog.aha-nstd.com/categories/ios/shell/"/>
+              <breadCrumb title="shell" url="http://nstd.github.io/categories/ios/shell/"/>
           
         </display>
     </data>
@@ -60,7 +60,7 @@
 
     
   <url>
-    <loc>http://blog.aha-nstd.com/2017/03/08/set-up-a-local-jfrog-artifactory/</loc>
+    <loc>http://nstd.github.io/2017/03/08/set-up-a-local-jfrog-artifactory/</loc>
     <lastmod>2017-03-08T08:23:26.000Z</lastmod>
     <data>
         <display>
@@ -78,7 +78,7 @@
          
            
              
-              <breadCrumb title="配置" url="http://blog.aha-nstd.com/categories/%E9%85%8D%E7%BD%AE/"/>
+              <breadCrumb title="配置" url="http://nstd.github.io/categories/%E9%85%8D%E7%BD%AE/"/>
           
         </display>
     </data>
@@ -86,7 +86,7 @@
 
     
   <url>
-    <loc>http://blog.aha-nstd.com/2017/03/03/common-lang3-package/</loc>
+    <loc>http://nstd.github.io/2017/03/03/common-lang3-package/</loc>
     <lastmod>2017-03-08T08:19:46.000Z</lastmod>
     <data>
         <display>
@@ -100,7 +100,7 @@
          
            
              
-              <breadCrumb title="java" url="http://blog.aha-nstd.com/categories/java/"/>
+              <breadCrumb title="java" url="http://nstd.github.io/categories/java/"/>
           
         </display>
     </data>
@@ -108,7 +108,7 @@
 
     
   <url>
-    <loc>http://blog.aha-nstd.com/2016/05/28/webview-pause-audio/</loc>
+    <loc>http://nstd.github.io/2016/05/28/webview-pause-audio/</loc>
     <lastmod>2017-03-03T09:39:34.000Z</lastmod>
     <data>
         <display>
@@ -124,7 +124,7 @@
          
            
              
-              <breadCrumb title="android" url="http://blog.aha-nstd.com/categories/android/"/>
+              <breadCrumb title="android" url="http://nstd.github.io/categories/android/"/>
           
         </display>
     </data>
@@ -132,7 +132,7 @@
 
     
   <url>
-    <loc>http://blog.aha-nstd.com/2016/06/04/CodeFights-Challenges-Cipher-Zeroes/</loc>
+    <loc>http://nstd.github.io/2016/06/04/CodeFights-Challenges-Cipher-Zeroes/</loc>
     <lastmod>2017-03-03T09:39:34.000Z</lastmod>
     <data>
         <display>
@@ -148,7 +148,7 @@
          
            
              
-              <breadCrumb title="CodeFights" url="http://blog.aha-nstd.com/categories/CodeFights/"/>
+              <breadCrumb title="CodeFights" url="http://nstd.github.io/categories/CodeFights/"/>
           
         </display>
     </data>
@@ -156,7 +156,7 @@
 
     
   <url>
-    <loc>http://blog.aha-nstd.com/2016/03/15/Stetho/</loc>
+    <loc>http://nstd.github.io/2016/03/15/Stetho/</loc>
     <lastmod>2017-03-03T09:22:42.000Z</lastmod>
     <data>
         <display>
@@ -172,7 +172,7 @@
          
            
              
-              <breadCrumb title="android" url="http://blog.aha-nstd.com/categories/android/"/>
+              <breadCrumb title="android" url="http://nstd.github.io/categories/android/"/>
           
         </display>
     </data>
@@ -180,7 +180,7 @@
 
     
   <url>
-    <loc>http://blog.aha-nstd.com/2016/01/30/CSS-layout-postion-float-z-index/</loc>
+    <loc>http://nstd.github.io/2016/01/30/CSS-layout-postion-float-z-index/</loc>
     <lastmod>2017-03-03T09:22:42.000Z</lastmod>
     <data>
         <display>
@@ -198,7 +198,7 @@
          
            
              
-              <breadCrumb title="web" url="http://blog.aha-nstd.com/categories/web/"/>
+              <breadCrumb title="web" url="http://nstd.github.io/categories/web/"/>
           
         </display>
     </data>
@@ -206,7 +206,7 @@
 
     
   <url>
-    <loc>http://blog.aha-nstd.com/2016/01/30/hello-world/</loc>
+    <loc>http://nstd.github.io/2016/01/30/hello-world/</loc>
     <lastmod>2017-03-03T09:22:42.000Z</lastmod>
     <data>
         <display>
@@ -218,7 +218,7 @@
          
            
              
-              <breadCrumb title="test" url="http://blog.aha-nstd.com/categories/test/"/>
+              <breadCrumb title="test" url="http://nstd.github.io/categories/test/"/>
           
         </display>
     </data>
@@ -227,7 +227,7 @@
     
     
   <url>
-    <loc>http://blog.aha-nstd.com/2016/02/14/about-learning/</loc>
+    <loc>http://nstd.github.io/2016/02/14/about-learning/</loc>
     <lastmod>2017-03-03T09:22:42.000Z</lastmod>
     <data>
         <display>
@@ -241,7 +241,7 @@
          
            
              
-              <breadCrumb title="随笔" url="http://blog.aha-nstd.com/categories/%E9%9A%8F%E7%AC%94/"/>
+              <breadCrumb title="随笔" url="http://nstd.github.io/categories/%E9%9A%8F%E7%AC%94/"/>
           
         </display>
     </data>
@@ -252,7 +252,7 @@
     
     
   <url>
-    <loc>http://blog.aha-nstd.com/2016/03/23/integrate-git-and-jenkins-auto-build/</loc>
+    <loc>http://nstd.github.io/2016/03/23/integrate-git-and-jenkins-auto-build/</loc>
     <lastmod>2016-03-25T11:36:57.000Z</lastmod>
     <data>
         <display>
@@ -268,7 +268,7 @@
          
            
              
-              <breadCrumb title="配置" url="http://blog.aha-nstd.com/categories/%E9%85%8D%E7%BD%AE/"/>
+              <breadCrumb title="配置" url="http://nstd.github.io/categories/%E9%85%8D%E7%BD%AE/"/>
           
         </display>
     </data>
