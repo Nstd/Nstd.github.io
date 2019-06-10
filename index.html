@@ -268,6 +268,147 @@
             
               
                 
+                <a class="post-title-link" href="/2019/06/10/android-studio-module-page-template/" itemprop="url">
+                  Android Studio Module&页面 自定义模板
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-06-10T11:00:44+08:00" content="2019-06-10">
+              2019-06-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android-Studio/" itemprop="url" rel="index">
+                    <span itemprop="name">Android Studio</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android-Studio/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2019/06/10/android-studio-module-page-template/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/06/10/android-studio-module-page-template/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>最近项目在搞组件化，基本改造已完成（解耦什么的真的是体力活呀！因为项目比较庞大，所以老代码决定还是放着不动，有时间有人力再搞，新的大功能以组件化的方式开发），但是创建新的组件模块要拷贝很多相似的配置和代码，鉴于IDEA强大的模板功能，决定把这块给自动化了。</p>
+<h2 id="符合我们要求的自定义模板分两类："><a href="#符合我们要求的自定义模板分两类：" class="headerlink" title="符合我们要求的自定义模板分两类："></a>符合我们要求的自定义模板分两类：</h2><h3 id="1-Module-模板"><a href="#1-Module-模板" class="headerlink" title="1. Module 模板"></a><span id='template_module'>1. Module 模板</span></h3><p>位于<code>&lt;AS安装目录&gt;/plugins/android/lib/templates/gradle-project</code>下，创建Application或者Module，类型只有固定的几类，<code>category</code>为<code>Application</code>，<code>formfactor</code>为：</p>
+<ul>
+<li>Mobile : 移动端应用</li>
+<li>Wear : 可穿戴设备的应用</li>
+<li>Car : 车载应用</li>
+<li>TV : 电视应用</li>
+<li>Things : 物联网应用</li>
+</ul>
+<p>一开始，自定义模板的时候使用的<code>Mobile</code>，不生效，发现<code>Mobile</code>只认一个；按照JavaLibrary的写法，去掉<code>formfactor</code>，发现也只认一个；后来改成<code>Things</code>才可以。<br>Module模板在创建的时候，无法像页面模板那样，在Create Dialog中添加自定义参数，让用户选填，这个有点坑。</p>
+<h3 id="2-页面模板"><a href="#2-页面模板" class="headerlink" title="2. 页面模板"></a>2. 页面模板</h3><p>位于<code>templates/activities</code>下，在module中创建特定的文件或目录，这种模板可以在Create Dialog中添加自定义的参数。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2019/06/10/android-studio-module-page-template/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2018/04/12/analysis-ios-crash/" itemprop="url">
                   发送异常堆栈到企业微信
                 </a>
@@ -773,133 +914,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/28/webview-pause-audio/" itemprop="url">
-                  Android webview 之onPause暂停audio播放
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-28T10:44:31+08:00" content="2016-05-28">
-              2016-05-28
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/android/" itemprop="url" rel="index">
-                    <span itemprop="name">android</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/05/28/webview-pause-audio/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/28/webview-pause-audio/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="What"><a href="#What" class="headerlink" title="What"></a>What</h2><p>最近，公司里的老司机在帮测试测app的时候，发现一个bug：android端，用webview打开一个活动页，点击活动页中的音乐进行播放，退出webview之后音乐仍在继续播放。</p>
-<p>这个bug之前在浏览技术文章的时候有见过，不过当时只是了解了大致的原因，在脑子里做了个问题的索引，并没有索引解决办法。</p>
-<p>不过大致方向有了，就和老司机说“这个bug我来解”</p>
-<p><img src="http://7xs1tn.com1.z0.glb.clouddn.com/blog-2628941275.gif" alt="英雄气概.gif"><br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/05/28/webview-pause-audio/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -940,7 +959,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-count">11</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -948,7 +967,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -957,7 +976,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -1030,7 +1049,7 @@
         <div class="copyright" >
   
   &copy;  2015 - 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

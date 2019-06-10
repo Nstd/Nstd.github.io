@@ -4,6 +4,31 @@
 
     
   <url>
+    <loc>http://blog.aha-nstd.com/2019/06/10/android-studio-module-page-template/</loc>
+    <lastmod>2019-06-10T08:00:25.519Z</lastmod>
+    <data>
+        <display>
+        <title>Android Studio Module&页面 自定义模板</title>
+        <pubTime>2019-06-10T03:00:44.000Z</pubTime>
+        
+        <tag>Android Studio</tag>
+         
+        <tag>自定义模板</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android Studio" url="http://blog.aha-nstd.com/categories/Android-Studio/"/>
+          
+             
+              <breadCrumb title="Android" url="http://blog.aha-nstd.com/categories/Android-Studio/Android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://blog.aha-nstd.com/2018/04/12/analysis-ios-crash/</loc>
     <lastmod>2018-04-12T06:54:58.000Z</lastmod>
     <data>
@@ -83,30 +108,6 @@
 
     
   <url>
-    <loc>http://blog.aha-nstd.com/2016/05/28/webview-pause-audio/</loc>
-    <lastmod>2017-03-03T09:39:34.000Z</lastmod>
-    <data>
-        <display>
-        <title>Android webview 之onPause暂停audio播放</title>
-        <pubTime>2016-05-28T02:44:31.000Z</pubTime>
-        
-        <tag>android</tag>
-         
-        <tag>webview</tag>
-         
-        <tag>audio</tag>
-         
-         
-           
-             
-              <breadCrumb title="android" url="http://blog.aha-nstd.com/categories/android/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://blog.aha-nstd.com/2016/06/04/CodeFights-Challenges-Cipher-Zeroes/</loc>
     <lastmod>2017-03-03T09:39:34.000Z</lastmod>
     <data>
@@ -124,6 +125,30 @@
            
              
               <breadCrumb title="CodeFights" url="http://blog.aha-nstd.com/categories/CodeFights/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.aha-nstd.com/2016/05/28/webview-pause-audio/</loc>
+    <lastmod>2017-03-03T09:39:34.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android webview 之onPause暂停audio播放</title>
+        <pubTime>2016-05-28T02:44:31.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>webview</tag>
+         
+        <tag>audio</tag>
+         
+         
+           
+             
+              <breadCrumb title="android" url="http://blog.aha-nstd.com/categories/android/"/>
           
         </display>
     </data>
@@ -157,26 +182,6 @@
 
     
   <url>
-    <loc>http://blog.aha-nstd.com/2016/01/30/hello-world/</loc>
-    <lastmod>2017-03-03T09:22:42.000Z</lastmod>
-    <data>
-        <display>
-        <title>Hello World</title>
-        <pubTime>2016-01-30T08:48:00.000Z</pubTime>
-        
-        <tag>test</tag>
-         
-         
-           
-             
-              <breadCrumb title="test" url="http://blog.aha-nstd.com/categories/test/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://blog.aha-nstd.com/2016/02/14/about-learning/</loc>
     <lastmod>2017-03-03T09:22:42.000Z</lastmod>
     <data>
@@ -197,6 +202,30 @@
     </data>
     </url>
 
+    
+  <url>
+    <loc>http://blog.aha-nstd.com/2016/01/30/hello-world/</loc>
+    <lastmod>2017-03-03T09:22:42.000Z</lastmod>
+    <data>
+        <display>
+        <title>Hello World</title>
+        <pubTime>2016-01-30T08:48:00.000Z</pubTime>
+        
+        <tag>test</tag>
+         
+         
+           
+             
+              <breadCrumb title="test" url="http://blog.aha-nstd.com/categories/test/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+    
+    
+    
     
   <url>
     <loc>http://blog.aha-nstd.com/2016/03/15/Stetho/</loc>
@@ -221,10 +250,6 @@
     </data>
     </url>
 
-    
-    
-    
-    
     
   <url>
     <loc>http://blog.aha-nstd.com/2016/03/23/integrate-git-and-jenkins-auto-build/</loc>

@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.aha-nstd.com/2019/06/10/android-studio-module-page-template/</loc>
+    
+    <lastmod>2019-06-10T08:00:25.519Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.aha-nstd.com/2018/04/12/analysis-ios-crash/</loc>
     
     <lastmod>2018-04-12T06:54:58.000Z</lastmod>
@@ -23,14 +30,14 @@
   </url>
   
   <url>
-    <loc>http://blog.aha-nstd.com/2016/05/28/webview-pause-audio/</loc>
+    <loc>http://blog.aha-nstd.com/2016/06/04/CodeFights-Challenges-Cipher-Zeroes/</loc>
     
     <lastmod>2017-03-03T09:39:34.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.aha-nstd.com/2016/06/04/CodeFights-Challenges-Cipher-Zeroes/</loc>
+    <loc>http://blog.aha-nstd.com/2016/05/28/webview-pause-audio/</loc>
     
     <lastmod>2017-03-03T09:39:34.000Z</lastmod>
     
@@ -44,13 +51,6 @@
   </url>
   
   <url>
-    <loc>http://blog.aha-nstd.com/2016/01/30/hello-world/</loc>
-    
-    <lastmod>2017-03-03T09:22:42.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.aha-nstd.com/2016/02/14/about-learning/</loc>
     
     <lastmod>2017-03-03T09:22:42.000Z</lastmod>
@@ -58,7 +58,14 @@
   </url>
   
   <url>
-    <loc>http://blog.aha-nstd.com/2016/03/15/Stetho/</loc>
+    <loc>http://blog.aha-nstd.com/2016/01/30/hello-world/</loc>
+    
+    <lastmod>2017-03-03T09:22:42.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.aha-nstd.com/drawing/index.html</loc>
     
     <lastmod>2017-03-03T09:22:42.000Z</lastmod>
     
@@ -86,7 +93,7 @@
   </url>
   
   <url>
-    <loc>http://blog.aha-nstd.com/drawing/index.html</loc>
+    <loc>http://blog.aha-nstd.com/2016/03/15/Stetho/</loc>
     
     <lastmod>2017-03-03T09:22:42.000Z</lastmod>
     
