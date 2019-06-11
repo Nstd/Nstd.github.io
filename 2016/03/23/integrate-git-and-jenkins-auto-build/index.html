@@ -104,22 +104,22 @@
 <meta property="og:url" content="http://nstd.github.io/2016/03/23/integrate-git-and-jenkins-auto-build/index.html">
 <meta property="og:site_name" content="Nstd">
 <meta property="og:description" content="一、起因公司的服务端维护一份错误码文件：errorCode.json，同时客户端也需要根据这样一份错误码对用户进行提示，错误码Sample如下：123456789&amp;#123;	&quot;200&quot;: &amp;#123;		&quot;0&quot;: &amp;#123;&quot;msg&quot;: &quot;成功&quot;&amp;#125;	&amp;#125;,	&quot;300&quot;: &amp;#123;		&quot;100&quot;: &amp;#123;&quot;msg&quot;: &quot;错误1&quot;&amp;#125;,		&quot;101&quot;: &amp;#12">
-<meta property="og:image" content="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fgit_jenkins_plugin.png">
-<meta property="og:image" content="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fgit_config_1.png">
-<meta property="og:image" content="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fgit_config_2.png">
-<meta property="og:image" content="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fgit_config_3.png">
-<meta property="og:image" content="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fgitlab_api_token.png">
-<meta property="og:image" content="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fgit_credentials.png">
-<meta property="og:image" content="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fjenkins_job_git.png">
-<meta property="og:image" content="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fjenkins_job_trigger.png">
-<meta property="og:image" content="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fgitlab_web_hooks.png">
-<meta property="og:image" content="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fjenkins_job_xterm_env.png">
-<meta property="og:image" content="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fjenkins_job_execute_shell.png">
-<meta property="og:updated_time" content="2016-03-25T11:36:57.000Z">
+<meta property="og:image" content="http://nstd-blog.oss-cn-hangzhou.aliyuncs.com/blog-post%2Fgit_jenkins_plugin.png">
+<meta property="og:image" content="http://nstd-blog.oss-cn-hangzhou.aliyuncs.com/blog-post%2Fgit_config_1.png">
+<meta property="og:image" content="http://nstd-blog.oss-cn-hangzhou.aliyuncs.com/blog-post%2Fgit_config_2.png">
+<meta property="og:image" content="http://nstd-blog.oss-cn-hangzhou.aliyuncs.com/blog-post%2Fgit_config_3.png">
+<meta property="og:image" content="http://nstd-blog.oss-cn-hangzhou.aliyuncs.com/blog-post%2Fgitlab_api_token.png">
+<meta property="og:image" content="http://nstd-blog.oss-cn-hangzhou.aliyuncs.com/blog-post%2Fgit_credentials.png">
+<meta property="og:image" content="http://nstd-blog.oss-cn-hangzhou.aliyuncs.com/blog-post%2Fjenkins_job_git.png">
+<meta property="og:image" content="http://nstd-blog.oss-cn-hangzhou.aliyuncs.com/blog-post%2Fjenkins_job_trigger.png">
+<meta property="og:image" content="http://nstd-blog.oss-cn-hangzhou.aliyuncs.com/blog-post%2Fgitlab_web_hooks.png">
+<meta property="og:image" content="http://nstd-blog.oss-cn-hangzhou.aliyuncs.com/blog-post%2Fjenkins_job_xterm_env.png">
+<meta property="og:image" content="http://nstd-blog.oss-cn-hangzhou.aliyuncs.com/blog-post%2Fjenkins_job_execute_shell.png">
+<meta property="og:updated_time" content="2019-06-11T06:38:38.815Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git+Jenkins之自动构建">
 <meta name="twitter:description" content="一、起因公司的服务端维护一份错误码文件：errorCode.json，同时客户端也需要根据这样一份错误码对用户进行提示，错误码Sample如下：123456789&amp;#123;	&quot;200&quot;: &amp;#123;		&quot;0&quot;: &amp;#123;&quot;msg&quot;: &quot;成功&quot;&amp;#125;	&amp;#125;,	&quot;300&quot;: &amp;#123;		&quot;100&quot;: &amp;#123;&quot;msg&quot;: &quot;错误1&quot;&amp;#125;,		&quot;101&quot;: &amp;#12">
-<meta name="twitter:image" content="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fgit_jenkins_plugin.png">
+<meta name="twitter:image" content="http://nstd-blog.oss-cn-hangzhou.aliyuncs.com/blog-post%2Fgit_jenkins_plugin.png">
 
 
 
@@ -448,7 +448,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2016-03-25 19:36:57" itemprop="dateModified" datetime="2016-03-25T19:36:57+08:00">2016-03-25</time>
+                <time title="修改时间：2019-06-11 14:38:38" itemprop="dateModified" datetime="2019-06-11T14:38:38+08:00">2019-06-11</time>
               
             
           </span>
@@ -535,7 +535,7 @@
 <li>push to git project<a id="more"></a>
 </li>
 </ol>
-<h2 id="二、经过"><a href="#二、经过" class="headerlink" title="二、经过"></a>二、经过</h2><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p><img src="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fgit_jenkins_plugin.png" alt="安装git插件"><br>进入【插件管理】界面安装以下插件：</p>
+<h2 id="二、经过"><a href="#二、经过" class="headerlink" title="二、经过"></a>二、经过</h2><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p><img src="http://nstd-blog.oss-cn-hangzhou.aliyuncs.com/blog-post%2Fgit_jenkins_plugin.png" alt="安装git插件"><br>进入【插件管理】界面安装以下插件：</p>
 <blockquote>
 <p><a href="https://wiki.jenkins-ci.org/display/JENKINS/Git+Client+Plugin" target="_blank" rel="external">Git client plugin</a><br><a href="https://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin" target="_blank" rel="external">Git plugin</a><br><a href="https://wiki.jenkins-ci.org/display/JENKINS/GitLab+Plugin" target="_blank" rel="external">GitLab Plugin</a><br><a href="https://wiki.jenkins-ci.org/display/JENKINS/AnsiColor+Plugin" target="_blank" rel="external">AnsiColor</a>（可选）这个插件可以让Jenkins的控制台输出的log带有颜色（就和linux控制台那样）</p>
 </blockquote>
@@ -556,30 +556,30 @@
 <h4 id="配置Jenkins"><a href="#配置Jenkins" class="headerlink" title="配置Jenkins"></a>配置Jenkins</h4><ol>
 <li><p>在Jenkins中配置Git<br>进入【<strong>系统管理</strong>】-&gt;【<strong>系统设置</strong>】</p>
 <ul>
-<li><p>设置使用的Git命令行<br><img src="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fgit_config_1.png" alt="设置Git"></p>
+<li><p>设置使用的Git命令行<br><img src="http://nstd-blog.oss-cn-hangzhou.aliyuncs.com/blog-post%2Fgit_config_1.png" alt="设置Git"></p>
 </li>
-<li><p>配置Git账号<br><img src="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fgit_config_2.png" alt="配置Git账号"></p>
+<li><p>配置Git账号<br><img src="http://nstd-blog.oss-cn-hangzhou.aliyuncs.com/blog-post%2Fgit_config_2.png" alt="配置Git账号"></p>
 </li>
-<li><p>配置Gitlab信息<br><img src="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fgit_config_3.png" alt="配置Gitlab"></p>
+<li><p>配置Gitlab信息<br><img src="http://nstd-blog.oss-cn-hangzhou.aliyuncs.com/blog-post%2Fgit_config_3.png" alt="配置Gitlab"></p>
 </li>
-<li><p>API Token获取方式<br><img src="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fgitlab_api_token.png" alt="API Token获取方式"></p>
+<li><p>API Token获取方式<br><img src="http://nstd-blog.oss-cn-hangzhou.aliyuncs.com/blog-post%2Fgitlab_api_token.png" alt="API Token获取方式"></p>
 </li>
 </ul>
 </li>
-<li><p>在Jenkins中配置Git账号<br><span id="config-git-credentials">进入</span>【<strong>Credentials</strong>】-&gt;【<strong>Global credentials(unrestricted</strong>】-&gt;【<strong>Add Credentials</strong>】<br><img src="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fgit_credentials.png" alt="配置Git账号"></p>
+<li><p>在Jenkins中配置Git账号<br><span id="config-git-credentials">进入</span>【<strong>Credentials</strong>】-&gt;【<strong>Global credentials(unrestricted</strong>】-&gt;【<strong>Add Credentials</strong>】<br><img src="http://nstd-blog.oss-cn-hangzhou.aliyuncs.com/blog-post%2Fgit_credentials.png" alt="配置Git账号"></p>
 </li>
 </ol>
 <h3 id="添加Job"><a href="#添加Job" class="headerlink" title="添加Job"></a>添加Job</h3><p>新建一个【<strong>构建一个自由风格的软件项目</strong>】的Job</p>
 <ul>
-<li><p>配置这个Job所用的Git项目信息<br><img src="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fjenkins_job_git.png" alt="Job Git Info"><br>这里的<strong>Credentials</strong>就是在<a href="#config-git-credentials">配置Git账号</a>中设置的账号；<font color="red">如果不配置Git项目信息，Git Push之后这个Job不会自动执行</font></p>
+<li><p>配置这个Job所用的Git项目信息<br><img src="http://nstd-blog.oss-cn-hangzhou.aliyuncs.com/blog-post%2Fjenkins_job_git.png" alt="Job Git Info"><br>这里的<strong>Credentials</strong>就是在<a href="#config-git-credentials">配置Git账号</a>中设置的账号；<font color="red">如果不配置Git项目信息，Git Push之后这个Job不会自动执行</font></p>
 </li>
-<li><p>配置触发器<br><img src="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fjenkins_job_trigger.png" alt="Job Trigger"><br>这里的圈出来的URL，需要配置到Gitlab对应项目的Web Hooks中</p>
+<li><p>配置触发器<br><img src="http://nstd-blog.oss-cn-hangzhou.aliyuncs.com/blog-post%2Fjenkins_job_trigger.png" alt="Job Trigger"><br>这里的圈出来的URL，需要配置到Gitlab对应项目的Web Hooks中</p>
 </li>
-<li><p>配置errorCode所在项目的Web Hooks<br>【<strong>Gitlab</strong>】-&gt;【<strong>选择项目</strong>】-&gt;【<strong>Settings</strong>】-&gt;【<strong>Web Hooks</strong>】<br><img src="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fgitlab_web_hooks.png" alt="Gitlab Web Hooks"><br>设置只有在收到push消息时才自动执行jenkins的job</p>
+<li><p>配置errorCode所在项目的Web Hooks<br>【<strong>Gitlab</strong>】-&gt;【<strong>选择项目</strong>】-&gt;【<strong>Settings</strong>】-&gt;【<strong>Web Hooks</strong>】<br><img src="http://nstd-blog.oss-cn-hangzhou.aliyuncs.com/blog-post%2Fgitlab_web_hooks.png" alt="Gitlab Web Hooks"><br>设置只有在收到push消息时才自动执行jenkins的job</p>
 </li>
-<li><p>配置构建环境（可选）<br><img src="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fjenkins_job_xterm_env.png" alt="Job Xterm Evn"><br>shell脚本中如果会输出带颜色的文字，可以设置这个，使Jenkins的Web Console也输出相同的颜色</p>
+<li><p>配置构建环境（可选）<br><img src="http://nstd-blog.oss-cn-hangzhou.aliyuncs.com/blog-post%2Fjenkins_job_xterm_env.png" alt="Job Xterm Evn"><br>shell脚本中如果会输出带颜色的文字，可以设置这个，使Jenkins的Web Console也输出相同的颜色</p>
 </li>
-<li><p>配置执行的脚本并保存<br><img src="http://7xs1tn.com1.z0.glb.clouddn.com/blog-post%2Fjenkins_job_execute_shell.png" alt="Job Execute Shell"></p>
+<li><p>配置执行的脚本并保存<br><img src="http://nstd-blog.oss-cn-hangzhou.aliyuncs.com/blog-post%2Fjenkins_job_execute_shell.png" alt="Job Execute Shell"></p>
 </li>
 </ul>
 <h3 id="update-sh脚本"><a href="#update-sh脚本" class="headerlink" title="update.sh脚本"></a>update.sh脚本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line"><span class="comment">###################################################################</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># 目录结构:</span></div><div class="line"><span class="comment"># .../ErrorCode</span></div><div class="line"><span class="comment">#        tools/</span></div><div class="line"><span class="comment">#            ECode.jar           //用java写的转换json工具</span></div><div class="line"><span class="comment">#            color.sh</span></div><div class="line"><span class="comment">#            config.properties   //ECode.jar用的配置文件,配置json文件路径什么的</span></div><div class="line"><span class="comment">#            update.sh</span></div><div class="line"><span class="comment">#        plan_project/</span></div><div class="line"><span class="comment">#            ....../clientErrorCode.json</span></div><div class="line"><span class="comment">#        android_application_project/</span></div><div class="line"><span class="comment">#            ....../clientErrorCode.json</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># 注意：</span></div><div class="line"><span class="comment">#    需要把 ErrorCode/下的所有文件的所有者设置为jenkins，</span></div><div class="line"><span class="comment">#    否则jenkins执行这个脚本的时候，会因为缺乏读写权限导致更新、提交git失败</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment">###################################################################</span></div><div class="line"></div><div class="line"><span class="built_in">source</span> /Users/compile/ErrorCode/tools/color.sh</div><div class="line"></div><div class="line"><span class="built_in">cd</span> /Users/compile/ErrorCode/</div><div class="line"></div><div class="line"><span class="built_in">cd</span> tools</div><div class="line"></div><div class="line"><span class="built_in">echo</span>Blue <span class="string">"update plan_project.."</span></div><div class="line"><span class="built_in">cd</span> ../plan_project</div><div class="line">git pull origin master</div><div class="line"></div><div class="line"><span class="keyword">if</span> [ $? <span class="_">-ne</span> 0 ]; <span class="keyword">then</span></div><div class="line">        <span class="built_in">echo</span>Error <span class="string">"update plan_project(clientErrorCode.json) from git failed"</span></div><div class="line">        <span class="built_in">exit</span> 1</div><div class="line"><span class="keyword">fi</span></div><div class="line"></div><div class="line"><span class="built_in">echo</span>Blue <span class="string">"update android_application_project.."</span></div><div class="line"><span class="built_in">cd</span> ../android_application_project</div><div class="line">git checkout develop</div><div class="line">git pull origin develop</div><div class="line"></div><div class="line"><span class="keyword">if</span> [ $? <span class="_">-ne</span> 0 ]; <span class="keyword">then</span></div><div class="line">        <span class="built_in">echo</span>Error <span class="string">"update android_application_project from git failed"</span></div><div class="line">        <span class="built_in">exit</span> 1</div><div class="line"><span class="keyword">fi</span></div><div class="line"></div><div class="line"><span class="built_in">cd</span> ../tools</div><div class="line">java -jar ECode.jar</div><div class="line"></div><div class="line"><span class="keyword">if</span> [ $? <span class="_">-eq</span> 0 ]; <span class="keyword">then</span></div><div class="line">        <span class="built_in">cd</span> ../android_application_project</div><div class="line">        git commit -am <span class="string">"update clientErrorCode.json by jenkins auto script"</span></div><div class="line">        <span class="keyword">if</span> [ $?  <span class="_">-ne</span> 0 ]; <span class="keyword">then</span></div><div class="line">                <span class="built_in">echo</span>Error <span class="string">"commit android_application_project failed"</span></div><div class="line">                <span class="built_in">exit</span> 1</div><div class="line">        <span class="keyword">fi</span></div><div class="line">        git push origin develop</div><div class="line">        <span class="keyword">if</span> [ $? <span class="_">-ne</span> 0 ]; <span class="keyword">then</span></div><div class="line">                <span class="built_in">echo</span>Error <span class="string">"push android_application_project failed"</span></div><div class="line">                <span class="built_in">exit</span> 1</div><div class="line">        <span class="keyword">fi</span></div><div class="line"></div><div class="line">        <span class="built_in">exit</span> 0</div><div class="line"><span class="keyword">else</span></div><div class="line">        <span class="built_in">echo</span>Error <span class="string">"merge clientErrorCod.json failed"</span></div><div class="line">        <span class="built_in">exit</span> 1</div><div class="line"><span class="keyword">fi</span></div></pre></td></tr></table></figure>

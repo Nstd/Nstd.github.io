@@ -108,14 +108,14 @@
 <meta property="og:description" content="What最近，公司里的老司机在帮测试测app的时候，发现一个bug：android端，用webview打开一个活动页，点击活动页中的音乐进行播放，退出webview之后音乐仍在继续播放。
 这个bug之前在浏览技术文章的时候有见过，不过当时只是了解了大致的原因，在脑子里做了个问题的索引，并没有索引解决办法。
 不过大致方向有了，就和老司机说“这个bug我来解”">
-<meta property="og:image" content="http://7xs1tn.com1.z0.glb.clouddn.com/blog-2628941275.gif">
-<meta property="og:updated_time" content="2017-03-03T09:39:34.000Z">
+<meta property="og:image" content="http://nstd-blog.oss-cn-hangzhou.aliyuncs.com/blog-2628941275.gif">
+<meta property="og:updated_time" content="2019-06-11T06:39:25.863Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android webview 之onPause暂停audio播放">
 <meta name="twitter:description" content="What最近，公司里的老司机在帮测试测app的时候，发现一个bug：android端，用webview打开一个活动页，点击活动页中的音乐进行播放，退出webview之后音乐仍在继续播放。
 这个bug之前在浏览技术文章的时候有见过，不过当时只是了解了大致的原因，在脑子里做了个问题的索引，并没有索引解决办法。
 不过大致方向有了，就和老司机说“这个bug我来解”">
-<meta name="twitter:image" content="http://7xs1tn.com1.z0.glb.clouddn.com/blog-2628941275.gif">
+<meta name="twitter:image" content="http://nstd-blog.oss-cn-hangzhou.aliyuncs.com/blog-2628941275.gif">
 
 
 
@@ -444,7 +444,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2017-03-03 17:39:34" itemprop="dateModified" datetime="2017-03-03T17:39:34+08:00">2017-03-03</time>
+                <time title="修改时间：2019-06-11 14:39:25" itemprop="dateModified" datetime="2019-06-11T14:39:25+08:00">2019-06-11</time>
               
             
           </span>
@@ -520,7 +520,7 @@
         <h2 id="What"><a href="#What" class="headerlink" title="What"></a>What</h2><p>最近，公司里的老司机在帮测试测app的时候，发现一个bug：android端，用webview打开一个活动页，点击活动页中的音乐进行播放，退出webview之后音乐仍在继续播放。</p>
 <p>这个bug之前在浏览技术文章的时候有见过，不过当时只是了解了大致的原因，在脑子里做了个问题的索引，并没有索引解决办法。</p>
 <p>不过大致方向有了，就和老司机说“这个bug我来解”</p>
-<p><img src="http://7xs1tn.com1.z0.glb.clouddn.com/blog-2628941275.gif" alt="英雄气概.gif"><br><a id="more"></a></p>
+<p><img src="http://nstd-blog.oss-cn-hangzhou.aliyuncs.com/blog-2628941275.gif" alt="英雄气概.gif"><br><a id="more"></a></p>
 <h2 id="Why"><a href="#Why" class="headerlink" title="Why"></a>Why</h2><p>网上说这是Android的一个bug！</p>
 <h2 id="HOW"><a href="#HOW" class="headerlink" title="HOW"></a>HOW</h2><p>网上解决方法有三种</p>
 <h3 id="1-在webview所在activity-onPause的时候，调用webView的onPause"><a href="#1-在webview所在activity-onPause的时候，调用webView的onPause" class="headerlink" title="1.在webview所在activity onPause的时候，调用webView的onPause"></a>1.在webview所在activity onPause的时候，调用webView的onPause</h3><p>不过SDK 11之前是不能直接调用webView的onPause，所以此处可以用版本号判断加反射来解决，如果觉得判断版本号麻烦，也可直接用反射。（测试无效/(ㄒoㄒ)/~~）</p>
