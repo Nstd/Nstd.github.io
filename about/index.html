@@ -131,8 +131,6 @@ PullToRefreshAndLoad
 基于jingchenUSTC的PullToRefreshAndLoad封装了一层UI操作，并提交到jcente">
 
 
-  
-
 
   <link rel="alternate" href="/atom.xml" title="Nstd" type="application/atom+xml"/>
 
@@ -472,9 +470,9 @@ PullToRefreshAndLoad
 
   
     <div class="comments" id="comments">
-      
-        <div id="gitment-container"></div>
-      
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
     </div>
 
   
@@ -902,41 +900,39 @@ PullToRefreshAndLoad
   
 
   
-
-
   
-    <!-- LOCAL: You can save these files to your site and update links -->
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://aha-nstd.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
 
-  
-  <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitmint.browser.js"></script>
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.css"/>
-<!-- END LOCAL -->
 
 <script>
-  function renderGitment() {
-    var gitment = new Gitmint({
-      id: window.location.pathname,
-      owner: 'Nstd',
-      repo: 'Nstd.github.io',
-      
-        lang: '' || navigator.language || navigator.systemLanguage || navigator.userLanguage,
-      
-      oauth: {
-      
-      
-        client_secret: 'b95a64e1f0159321412c34c564b81eb12ab325c7',
-      
-        client_id: 'f7bcb9e08f2f2cd5acbc'
-      }
-    });
-    gitment.render('gitment-container');
+  var disqus_config = function() {
+    this.page.url = "http://nstd.github.io/about/index.html";
+    this.page.identifier = "about/index.html";
+    this.page.title = 'about';
+    };
+  function loadComments() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://aha-nstd.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', '' + +new Date());
+    (d.head || d.body).appendChild(s);
   }
-
   
-    renderGitment();
+    window.addEventListener('load', loadComments, false);
   
 </script>
+
+
+
+
 
   
 
